@@ -1444,11 +1444,25 @@
         font-size: 0.8rem;
       }
       
+      #hero-section {
+        align-items: center !important;
+      }
+      .hero-wrapper {
+        align-items: center !important;
+      }
       #hero-portal {
         width: 88vw;
-        height: 48vh;
-        border-radius: 16px 16px 0 0;
-        border-bottom: none;
+        height: 60vh;
+        border-radius: 20px !important;
+        border-bottom: 1px solid rgba(200, 144, 58, 0.3) !important;
+        transform-origin: center center !important;
+      }
+      #grid-canvas {
+        top: 50% !important;
+        bottom: auto !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        transform-origin: center center !important;
       }
       .hero-text-wrapper {
         padding: 1.2rem !important;
@@ -2836,7 +2850,11 @@
       }, 0);
 
       // Counter-scale the inner canvas to keep it unscaled and crisp on the screen
-      gsap.set("#grid-canvas", { xPercent: -50 });
+      if (window.innerWidth > 768) {
+        gsap.set("#grid-canvas", { xPercent: -50, yPercent: 0 });
+      } else {
+        gsap.set("#grid-canvas", { xPercent: -50, yPercent: -50 });
+      }
       heroTL.to("#grid-canvas", {
         scale: () => {
           const portal = document.getElementById('hero-portal');
