@@ -1470,112 +1470,144 @@
       }
       
       #story-section {
-        height: auto;
+        height: 100vh !important;
       }
       .story-layout-wrapper {
-        height: auto;
+        height: 100vh !important;
       }
       .story-container {
         display: flex;
         flex-direction: column;
-        height: auto;
-        padding: 80px 1.5rem;
-        gap: 2.5rem;
+        height: 100vh !important;
+        padding: 0 1.5rem !important;
+        position: relative !important;
+        align-items: center !important;
+        justify-content: center !important;
       }
       .stages-container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        gap: 3rem;
-        width: 100%;
-        margin-top: 2rem;
-        pointer-events: auto;
-        z-index: 10;
+        position: absolute !important;
+        inset: 0 !important;
+        display: block !important;
+        pointer-events: none !important;
+        z-index: 10 !important;
+        margin-top: 0 !important;
       }
       .story-stage {
-        position: relative;
-        inset: auto;
-        opacity: 1 !important; /* show all stages stacked on mobile */
-        pointer-events: auto;
-        display: flex;
-        justify-content: center;
-        padding: 0;
+        position: absolute !important;
+        inset: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+      .story-stage.active {
+        opacity: 1 !important;
+        pointer-events: auto !important;
       }
       .story-card {
-        text-align: center;
-        padding: 2rem 1.5rem;
-        margin: 0;
-        background: rgba(13, 13, 18, 0.5);
-        border: 1px solid rgba(200, 144, 58, 0.12);
-        border-radius: 12px;
-        width: 100%;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        text-align: center !important;
+        padding: 2rem 1.5rem !important;
+        margin: 0 !important;
+        background: rgba(13, 13, 18, 0.85) !important;
+        backdrop-filter: blur(10px) !important;
+        border: 1px solid rgba(200, 144, 58, 0.12) !important;
+        border-radius: 12px !important;
+        width: 90% !important;
+        max-width: 400px !important;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+        transform: none !important;
+      }
+      #stage-0 .story-card {
+        transform: none !important;
+        text-align: center !important;
       }
       .story-card h3 {
-        font-size: 1.15rem;
+        font-size: 1.15rem !important;
       }
       .center-column {
-        grid-column: auto;
-        order: -1; /* Stack image above story text on mobile */
-        position: sticky;
-        top: 70px;
-        z-index: 10;
-        width: 100%;
-        background: #0d0d12;
-        padding: 15px 0;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 85vw !important;
+        height: 85vw !important;
+        max-width: 320px !important;
+        max-height: 320px !important;
+        z-index: 2 !important;
+        background: transparent !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
       }
       .image-container {
-        width: 100%;
-        height: 35vh !important; /* Fix container height */
+        width: 100% !important;
+        height: 100% !important;
         transform: none !important;
-        border-radius: 12px;
+        border-radius: 16px !important;
       }
       .image-container img {
         transform: none !important;
       }
       .progress-dots {
-        margin-top: 15px;
+        position: absolute !important;
+        bottom: 5vh !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        margin-top: 0 !important;
+        z-index: 20 !important;
       }
 
       #services-section {
-        padding: 80px 1.5rem;
-        height: auto;
+        padding: 80px 1.5rem !important;
+        height: 100vh !important;
       }
       .services-layout-wrapper {
-        display: flex;
-        flex-direction: column;
-        height: auto;
-        gap: 2rem;
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100vh !important;
+        position: relative !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 0 !important;
       }
       .services-header {
-        width: 100%;
-        text-align: center;
-        margin: 0;
+        position: absolute !important;
+        top: 8vh !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 90% !important;
+        text-align: center !important;
+        margin: 0 !important;
       }
       .services-cards-wrapper {
-        width: 100%;
-        height: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
+        position: absolute !important;
+        width: 90% !important;
+        height: 50vh !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
       }
       .service-card {
-        position: relative;
-        width: 100%;
-        max-width: 100%;
-        height: auto;
+        position: absolute !important;
+        width: 100% !important;
+        max-width: 360px !important;
+        height: auto !important;
+        padding: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 1rem !important;
+        opacity: 0 !important;
         transform: none !important;
-        opacity: 1 !important;
-        padding: 0;
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 1.2rem;
       }
       .service-card.card-right,
       .service-card.card-left {
-        right: auto;
-        left: auto;
+        right: auto !important;
+        left: auto !important;
       }
 
       #contact-section {
@@ -1592,7 +1624,8 @@
       .footer-links {
         gap: 2rem;
         flex-wrap: wrap;
-      }       /* New Sections Mobile Adjustments */
+      }
+      /* New Sections Mobile Adjustments */
       #portfolio-section, #pricing-section, #faq-section {
         padding: 80px 1.5rem;
       }
@@ -1622,48 +1655,92 @@
       .portfolio-flow-desc {
         font-size: 0.75rem;
       }
+      
       #pricing-section {
-        height: auto;
-        display: block;
+        height: 100vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      .pricing-header {
+        text-align: center !important;
+        margin-bottom: 2rem !important;
+        width: 90% !important;
       }
       .pricing-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        max-width: 100%;
+        position: relative !important;
+        left: 0 !important;
+        width: 95% !important;
+        max-width: 360px !important;
+        height: 480px !important;
+        margin: 0 !important;
+        display: block !important;
       }
       .pricing-card {
-        position: relative;
-        left: auto;
-        transform: none;
+        position: absolute !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        height: 400px !important;
+        padding: 4.5rem 1.5rem 1.5rem 1.5rem !important;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5) !important;
+        display: flex !important;
+        flex-direction: column !important;
         width: 100% !important;
-        top: auto !important;
-        height: auto;
-        padding: 3rem 1.8rem;
+      }
+      .pricing-card:nth-child(3) { /* Enterprise - back */
+        top: 0 !important;
+        width: 90% !important;
+        z-index: 1 !important;
+      }
+      .pricing-card:nth-child(2) { /* Growth Engine - middle */
+        top: 30px !important;
+        width: 95% !important;
+        z-index: 2 !important;
+      }
+      .pricing-card:nth-child(1) { /* Launch Pad - front */
+        top: 60px !important;
+        width: 100% !important;
+        z-index: 3 !important;
       }
       .pricing-card-tab {
-        position: relative;
-        height: auto;
-        background: transparent;
-        border-bottom: none;
-        border-radius: 0;
-        display: block;
-        margin-bottom: 1.2rem;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 35px !important;
+        background: rgba(200, 144, 58, 0.06) !important;
+        border-bottom: 1px solid rgba(200, 144, 58, 0.15) !important;
+        border-radius: 20px 20px 0 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
       }
       .pricing-tier {
-        font-size: 1.3rem;
-        color: var(--text-primary);
-        margin: 0;
-        font-weight: 400;
-        text-align: left;
-        position: relative;
-        top: auto;
-        left: auto;
-        width: auto;
+        font-size: 0.85rem !important;
+        color: var(--text-primary) !important;
+        margin: 0 !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: auto !important;
+      }
+      .pricing-price {
+        font-size: 2.2rem !important;
+        margin-bottom: 1.2rem !important;
+      }
+      .pricing-features {
+        gap: 0.7rem !important;
+        margin-bottom: 1.5rem !important;
+      }
+      .pricing-features li {
+        font-size: 0.8rem !important;
       }
       .popular-badge {
-        top: 25px;
-        right: 20px;
+        top: 15px !important;
+        right: 15px !important;
       } }
       .faq-question {
         padding: 1.5rem;
@@ -2724,508 +2801,353 @@
       // Start loop
       mainLoop();
 
-      // GSAP MEDIA MATCH (DESKTOP VS MOBILE SCROLLTRIGGERS)
-      const mm = gsap.matchMedia();
+      // HERO PORTAL EXPANSION
+      const heroTL = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#hero-section",
+          start: "top top",
+          end: "+=200%",
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true
+        }
+      });
 
-      // --- DESKTOP ANIMATIONS (min-width: 769px) ---
-      mm.add("(min-width: 769px)", () => {
-        // HERO PORTAL EXPANSION
-        const heroTL = gsap.timeline({
-          scrollTrigger: {
-            trigger: "#hero-section",
-            start: "top top",
-            end: "+=200%",
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true
-          }
-        });
+      // Portal expands to cover full screen
+      heroTL.to("#hero-portal", {
+        scale: () => {
+          const portal = document.getElementById('hero-portal');
+          const scaleX = window.innerWidth / portal.offsetWidth;
+          const scaleY = window.innerHeight / portal.offsetHeight;
+          return Math.max(scaleX, scaleY);
+        },
+        borderRadius: 0,
+        borderColor: "transparent",
+        ease: "none",
+        duration: 1
+      }, 0);
 
+      // Counter-scale the inner canvas to keep it unscaled and crisp on the screen
+      gsap.set("#grid-canvas", { xPercent: -50 });
+      heroTL.to("#grid-canvas", {
+        scale: () => {
+          const portal = document.getElementById('hero-portal');
+          const scaleX = window.innerWidth / portal.offsetWidth;
+          const scaleY = window.innerHeight / portal.offsetHeight;
+          return 1 / Math.max(scaleX, scaleY);
+        },
+        ease: "none",
+        duration: 1
+      }, 0);
 
-        // 2. Portal expands to cover full screen
-        heroTL.to("#hero-portal", {
-          scale: () => {
-            const portal = document.getElementById('hero-portal');
-            const scaleX = window.innerWidth / portal.offsetWidth;
-            const scaleY = window.innerHeight / portal.offsetHeight;
-            return Math.max(scaleX, scaleY);
-          },
-          borderRadius: 0,
-          borderColor: "transparent",
-          ease: "none",
-          duration: 1
-        }, 0);
+      // Fade in the global background canvas during the last 10% of the portal expansion (progress 0.9 -> 1.0)
+      heroTL.to("#bg-canvas", {
+        opacity: 1,
+        ease: "none",
+        duration: 0.1
+      }, 0.9);
 
-        // Counter-scale the inner canvas to keep it unscaled and crisp on the screen
-        gsap.set("#grid-canvas", { xPercent: -50 });
-        heroTL.to("#grid-canvas", {
-          scale: () => {
-            const portal = document.getElementById('hero-portal');
-            const scaleX = window.innerWidth / portal.offsetWidth;
-            const scaleY = window.innerHeight / portal.offsetHeight;
-            return 1 / Math.max(scaleX, scaleY);
-          },
-          ease: "none",
-          duration: 1
-        }, 0);
+      // ABOUT SECTION ANIMATIONS
+      gsap.from(".about-hr", {
+        scaleX: 0,
+        transformOrigin: "left center",
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: "#about-section",
+          start: "top 85%",
+          end: "top 50%",
+          scrub: true
+        }
+      });
 
-        // Fade in the global background canvas during the last 10% of the portal expansion (progress 0.9 -> 1.0)
-        heroTL.to("#bg-canvas", {
-          opacity: 1,
-          ease: "none",
-          duration: 0.1
-        }, 0.9);
+      gsap.from(".about-col", {
+        opacity: 0,
+        y: 40,
+        stagger: 0.15,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: "#about-section",
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      });
 
-        // ABOUT SECTION ANIMATIONS
-        gsap.from(".about-hr", {
-          scaleX: 0,
-          transformOrigin: "left center",
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: "#about-section",
-            start: "top 85%",
-            end: "top 50%",
-            scrub: true
-          }
-        });
-
-        gsap.from(".about-col", {
-          opacity: 0,
-          y: 40,
-          stagger: 0.15,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: "#about-section",
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
-        });
-
-        // STORY SCROLL PINNING & GROWING IMAGE TIMELINE
-        const storyGrowTL = gsap.timeline({
-          scrollTrigger: {
-            trigger: "#story-section",
-            start: "top top",
-            end: "+=400%",
-            scrub: 1.5,
-            invalidateOnRefresh: true
-          }
-        });
-
-        // Set initial state for container
-        gsap.set("#story-img-container", {
-          width: "700px",
-          height: "700px",
-          borderRadius: "24px"
-        });
-
-        // Stage 1: grows to 80vw x 80vh
-        storyGrowTL.to("#story-img-container", {
-          width: "80vw",
-          height: "80vh",
-          borderRadius: "16px",
-          ease: "power1.inOut",
-          duration: 0.25
-        }, 0.25);
-
-        // Stage 2: grows to 92vw x 92vh
-        storyGrowTL.to("#story-img-container", {
-          width: "92vw",
-          height: "92vh",
-          borderRadius: "8px",
-          ease: "power1.inOut",
-          duration: 0.25
-        }, 0.5);
-
-        // Stage 3: grows to 100vw x 100vh (full viewport)
-        storyGrowTL.to("#story-img-container", {
-          width: "100vw",
-          height: "100vh",
-          borderRadius: "0px",
-          ease: "power1.inOut",
-          duration: 0.25
-        }, 0.75);
-
-        // 3. Fade out text columns and progress dots as the image expands to full screen (progress 0.8 -> 1.0)
-        gsap.to(".stages-container, #progress-dots", {
-          opacity: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: "#story-section",
-            start: "top+=320% top", // starts at 80% progress
-            end: "top+=380% top",   // fully faded at 95% progress
-            scrub: true
-          }
-        });
-
-        // 3. Pinned Scroll story stages swapping
-        let activeIndex = -1;
-        ScrollTrigger.create({
+      // STORY SCROLL PINNING & GROWING IMAGE TIMELINE
+      const storyGrowTL = gsap.timeline({
+        scrollTrigger: {
           trigger: "#story-section",
           start: "top top",
           end: "+=400%",
-          pin: true,
           scrub: 1.5,
-          onUpdate: (self) => {
-            const progress = self.progress;
-            let index = Math.floor(progress * 4);
-            if (index > 3) index = 3;
-            if (index < 0) index = 0;
+          invalidateOnRefresh: true
+        }
+      });
 
-            if (index !== activeIndex) {
-              const oldIndex = activeIndex;
-              activeIndex = index;
+      // Set initial state for container
+      gsap.set("#story-img-container", {
+        width: () => window.innerWidth > 768 ? "700px" : "85vw",
+        height: () => window.innerWidth > 768 ? "700px" : "85vw",
+        borderRadius: "24px"
+      });
 
-              // Image Crossfades
-              const images = document.querySelectorAll('#story-img-container img');
-              images.forEach((img, i) => {
-                gsap.to(img, {
-                  opacity: i === index ? 1 : 0,
+      // Stage 1: grows to 80vw x 80vh
+      storyGrowTL.to("#story-img-container", {
+        width: "80vw",
+        height: "80vh",
+        borderRadius: "16px",
+        ease: "power1.inOut",
+        duration: 0.25
+      }, 0.25);
+
+      // Stage 2: grows to 92vw x 92vh
+      storyGrowTL.to("#story-img-container", {
+        width: "92vw",
+        height: "92vh",
+        borderRadius: "8px",
+        ease: "power1.inOut",
+        duration: 0.25
+      }, 0.5);
+
+      // Stage 3: grows to 100vw x 100vh (full viewport)
+      storyGrowTL.to("#story-img-container", {
+        width: "100vw",
+        height: "100vh",
+        borderRadius: "0px",
+        ease: "power1.inOut",
+        duration: 0.25
+      }, 0.75);
+
+      // Fade out text columns and progress dots as the image expands to full screen (progress 0.8 -> 1.0)
+      gsap.to(".stages-container, #progress-dots", {
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#story-section",
+          start: "top+=320% top",
+          end: "top+=380% top",
+          scrub: true
+        }
+      });
+
+      // Pinned Scroll story stages swapping
+      let activeIndex = -1;
+      ScrollTrigger.create({
+        trigger: "#story-section",
+        start: "top top",
+        end: "+=400%",
+        pin: true,
+        scrub: 1.5,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          let index = Math.floor(progress * 4);
+          if (index > 3) index = 3;
+          if (index < 0) index = 0;
+
+          if (index !== activeIndex) {
+            const oldIndex = activeIndex;
+            activeIndex = index;
+
+            // Image Crossfades
+            const images = document.querySelectorAll('#story-img-container img');
+            images.forEach((img, i) => {
+              gsap.to(img, {
+                opacity: i === index ? 1 : 0,
+                duration: 0.4,
+                overwrite: "auto"
+              });
+            });
+
+            // Story stages fade & slide transitions
+            const stages = document.querySelectorAll('.story-stage');
+            stages.forEach((stage, i) => {
+              const card = stage.querySelector('.story-card');
+              if (i === index) {
+                stage.classList.add('active');
+                gsap.to(stage, {
+                  opacity: 1,
+                  pointerEvents: "auto",
                   duration: 0.4,
                   overwrite: "auto"
                 });
-              });
 
-              // Story stages fade & slide transitions
-              const stages = document.querySelectorAll('.story-stage');
-              stages.forEach((stage, i) => {
-                const card = stage.querySelector('.story-card');
-                if (i === index) {
-                  stage.classList.add('active');
-                  gsap.to(stage, {
-                    opacity: 1,
-                    pointerEvents: "auto",
-                    duration: 0.4,
-                    overwrite: "auto"
-                  });
-
+                if (window.innerWidth > 768) {
                   if (index === 0) {
                     if (oldIndex === 1) {
-                      // Stage 0 entering back from Stage 1: slide from center to left
                       gsap.fromTo(card, { x: "0vw" }, { x: "-28vw", ease: "power3.out", duration: 0.8, overwrite: "auto" });
                     } else {
                       gsap.to(card, { x: "-28vw", duration: 0.4, overwrite: "auto" });
                     }
                   } else if (index === 1 && oldIndex === 0) {
-                    // Stage 1 entering from 0: animate sliding from left to center
                     gsap.fromTo(card, { x: "-28vw" }, { x: "0vw", ease: "power3.out", duration: 0.8, overwrite: "auto" });
                   } else {
-                    // Stages 2 and 3: centered
                     gsap.to(card, { x: "0vw", duration: 0.4, overwrite: "auto" });
                   }
                 } else {
-                  gsap.to(stage, {
-                    opacity: 0,
-                    pointerEvents: "none",
-                    duration: 0.35,
-                    overwrite: "auto",
-                    onComplete: () => stage.classList.remove('active')
-                  });
+                  gsap.to(card, { x: "0vw", duration: 0.4, overwrite: "auto" });
+                }
+              } else {
+                gsap.to(stage, {
+                  opacity: 0,
+                  pointerEvents: "none",
+                  duration: 0.35,
+                  overwrite: "auto",
+                  onComplete: () => stage.classList.remove('active')
+                });
 
+                if (window.innerWidth > 768) {
                   if (i === 0 && index === 1) {
-                    // Stage 0 exiting forward to 1: slide slightly left and fade
-                    gsap.to(card, {
-                      x: "-32vw",
-                      ease: "power3.out",
-                      duration: 0.8,
-                      overwrite: "auto"
-                    });
+                    gsap.to(card, { x: "-32vw", ease: "power3.out", duration: 0.8, overwrite: "auto" });
                   } else if (i === 1 && index === 0) {
-                    // Stage 1 exiting back to 0: slide to the left side and fade
-                    gsap.to(card, {
-                      x: "-28vw",
-                      ease: "power3.out",
-                      duration: 0.8,
-                      overwrite: "auto"
-                    });
+                    gsap.to(card, { x: "-28vw", ease: "power3.out", duration: 0.8, overwrite: "auto" });
                   }
-                }
-              });
-
-              // Active dot indicators
-              const dots = document.querySelectorAll('.progress-dot');
-              dots.forEach((dot, i) => {
-                if (i === index) {
-                  dot.classList.add('active');
                 } else {
-                  dot.classList.remove('active');
+                  gsap.to(card, { x: "0vw", duration: 0.4, overwrite: "auto" });
                 }
-              });
-            }
+              }
+            });
 
-            // Scanline canvas overlay opacity
-            const scanlineCanvas = document.getElementById('scanline-canvas');
-            if (scanlineCanvas) {
-              scanlineCanvas.style.opacity = 0.8 * (1 - progress);
-            }
+            // Active dot indicators
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((dot, i) => {
+              if (i === index) {
+                dot.classList.add('active');
+              } else {
+                dot.classList.remove('active');
+              }
+            });
           }
-        });
 
-        // SERVICES ALTERNATING SLIDE TIMELINE
-        const servicesCards = gsap.utils.toArray(".services-cards-wrapper .service-card");
+          // Scanline canvas overlay opacity
+          if (scanlineCanvas) {
+            scanlineCanvas.style.opacity = 0.8 * (1 - progress);
+          }
+        }
+      });
 
-        // Set initial positions: right cards translated right, left cards translated left
-        servicesCards.forEach((card) => {
+      // SERVICES ALTERNATING SLIDE TIMELINE
+      const servicesCards = gsap.utils.toArray(".services-cards-wrapper .service-card");
+
+      // Set initial positions
+      servicesCards.forEach((card) => {
+        if (window.innerWidth > 768) {
           if (card.classList.contains('card-right')) {
             gsap.set(card, { x: "25vw", opacity: 0 });
           } else {
             gsap.set(card, { x: "-25vw", opacity: 0 });
           }
-        });
-
-        const servicesTL = gsap.timeline({
-          scrollTrigger: {
-            trigger: "#services-section",
-            start: "top top",
-            end: "+=400%",
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true
-          }
-        });
-
-        // Card 1 (Right): Enters 0 -> 0.3, exits 0.7 -> 1.0
-        servicesTL.fromTo(servicesCards[0], 
-          { x: "25vw", opacity: 0 }, 
-          { x: "0vw", opacity: 1, ease: "power2.out", duration: 0.3 }, 
-          0
-        );
-        servicesTL.to(servicesCards[0], 
-          { x: "25vw", opacity: 0, ease: "power2.in", duration: 0.3 }, 
-          0.7
-        );
-
-        // Card 2 (Left): Enters 1.0 -> 1.3, exits 1.7 -> 2.0
-        servicesTL.fromTo(servicesCards[1], 
-          { x: "-25vw", opacity: 0 }, 
-          { x: "0vw", opacity: 1, ease: "power2.out", duration: 0.3 }, 
-          1.0
-        );
-        servicesTL.to(servicesCards[1], 
-          { x: "-25vw", opacity: 0, ease: "power2.in", duration: 0.3 }, 
-          1.7
-        );
-
-        // Card 3 (Right): Enters 2.0 -> 2.3, exits 2.7 -> 3.0
-        servicesTL.fromTo(servicesCards[2], 
-          { x: "25vw", opacity: 0 }, 
-          { x: "0vw", opacity: 1, ease: "power2.out", duration: 0.3 }, 
-          2.0
-        );
-        servicesTL.to(servicesCards[2], 
-          { x: "25vw", opacity: 0, ease: "power2.in", duration: 0.3 }, 
-          2.7
-        );
-
-        // Card 4 (Left): Enters 3.0 -> 3.3, exits 3.7 -> 4.0
-        servicesTL.fromTo(servicesCards[3], 
-          { x: "-25vw", opacity: 0 }, 
-          { x: "0vw", opacity: 1, ease: "power2.out", duration: 0.3 }, 
-          3.0
-        );
-        servicesTL.to(servicesCards[3], 
-          { x: "-25vw", opacity: 0, ease: "power2.in", duration: 0.3 }, 
-          3.7
-        );
-
-        // PRICING SECTION STACK ANIMATION (DESKTOP)
-        const pricingCards = gsap.utils.toArray("#pricing-section .pricing-card");
-
-        const pricingTL = gsap.timeline({
-          scrollTrigger: {
-            trigger: "#pricing-section",
-            start: "top top",
-            end: "+=250%",
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true
-          }
-        });
-
-        // Card 1 (Launch Pad, front) slides down and fades out (progress 0 -> 0.45)
-        pricingTL.to(pricingCards[0], {
-          y: "80vh",
-          opacity: 0,
-          scale: 0.9,
-          ease: "power1.inOut"
-        });
-
-        // Card 2 (Growth Engine, middle) slides down and fades out (progress 0.45 -> 0.9)
-        pricingTL.to(pricingCards[1], {
-          y: "80vh",
-          opacity: 0,
-          scale: 0.9,
-          ease: "power1.inOut"
-        });
-
-        // CONTACT SECTION SCROLL REVEAL (DESKTOP ONLY)
-        gsap.from("#contact-section .contact-info", {
-          x: -80,
-          opacity: 0,
-          duration: 1.0,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: "#contact-section",
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-          }
-        });
-
-        gsap.from("#contact-section .contact-form-wrapper", {
-          x: 80,
-          opacity: 0,
-          duration: 1.0,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: "#contact-section",
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-          }
-        });
-
-        // PORTFOLIO CONTAINER SCROLL SCALE-UP (DESKTOP)
-        gsap.fromTo(".portfolio-flow-container", 
-          {
-            scale: 0.5,
-            opacity: 0.2,
-            y: 120,
-            transformOrigin: "bottom center"
-          },
-          {
-            scale: 1.0,
-            opacity: 1.0,
-            y: 0,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: "#portfolio-section",
-              start: "top bottom",
-              end: "top 35%",
-              scrub: 1
-            }
-          }
-        );
-
-        // Services timeline setup complete
-        // We removed GSAP entries for bottom sections to prevent scroll offset conflicts
-        // and migrated them to IntersectionObserver below.
+        } else {
+          gsap.set(card, { y: 50, opacity: 0 });
+        }
       });
 
-      // --- MOBILE ANIMATIONS (max-width: 768px) ---
-      mm.add("(max-width: 768px)", () => {
-        // Mobile simple entry animations
-        gsap.from("#hero-portal", {
-          opacity: 0,
-          scale: 0.9,
-          duration: 1.2,
-          ease: "power2.out"
-        });
+      const servicesTL = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#services-section",
+          start: "top top",
+          end: "+=400%",
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true
+        }
+      });
 
-        gsap.from(".about-col", {
-          opacity: 0,
-          y: 30,
-          stagger: 0.15,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: "#about-section",
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
-        });
+      // Setup transitions
+      servicesCards.forEach((card, idx) => {
+        const startTime = idx * 1.0;
+        const enterX = window.innerWidth > 768 ? (card.classList.contains('card-right') ? "25vw" : "-25vw") : "0vw";
+        const enterY = window.innerWidth > 768 ? "0px" : "50px";
 
-        // Set all images to opacity 0 except first one to begin
-        const mobileImages = document.querySelectorAll('#story-img-container img');
-        mobileImages.forEach((img, idx) => {
-          img.style.opacity = idx === 0 ? '1' : '0';
-        });
-
-        // Crossfade images based on mobile active stage in view
-        const stages = document.querySelectorAll('.story-stage');
-        let currentMobileIndex = 0;
-
-        stages.forEach((stage, idx) => {
-          ScrollTrigger.create({
-            trigger: stage,
-            start: "top 55%",
-            end: "bottom 45%",
-            onToggle: (self) => {
-              if (self.isActive && currentMobileIndex !== idx) {
-                currentMobileIndex = idx;
-                
-                // Crossfade corresponding image
-                mobileImages.forEach((img, i) => {
-                  gsap.to(img, {
-                    opacity: i === idx ? 1 : 0,
-                    duration: 0.4,
-                    overwrite: "auto"
-                  });
-                });
-
-                // Update dots
-                const dots = document.querySelectorAll('.progress-dot');
-                dots.forEach((dot, i) => {
-                  if (i === idx) {
-                    dot.classList.add('active');
-                  } else {
-                    dot.classList.remove('active');
-                  }
-                });
-              }
-            }
-          });
-        });
-
-        // Inline services entry
-        gsap.from(".service-card", {
-          opacity: 0,
-          y: 30,
-          stagger: 0.1,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: "#services-section",
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
-        });
-        // Mobile Contact entry: simple fade up
-        gsap.from("#contact-section .contact-info, #contact-section .contact-form-wrapper", {
-          y: 30,
-          opacity: 0,
-          stagger: 0.15,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: "#contact-section",
-            start: "top 90%",
-            toggleActions: "play none none reverse"
-          }
-        });
-
-        // Mobile Portfolio entry scale-up
-        gsap.fromTo(".portfolio-flow-container", 
-          {
-            scale: 0.6,
-            opacity: 0.2,
-            y: 70,
-            transformOrigin: "bottom center"
-          },
-          {
-            scale: 1.0,
-            opacity: 1.0,
-            y: 0,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: "#portfolio-section",
-              start: "top bottom",
-              end: "top 45%",
-              scrub: 1
-            }
-          }
+        servicesTL.fromTo(card,
+          { x: enterX, y: enterY, opacity: 0 },
+          { x: "0vw", y: "0px", opacity: 1, ease: "power2.out", duration: 0.3 },
+          startTime
         );
 
-      }); // Close mobile MatchMedia block
+        const exitX = window.innerWidth > 768 ? (card.classList.contains('card-right') ? "25vw" : "-25vw") : "0vw";
+        const exitY = window.innerWidth > 768 ? "0px" : "50px";
+        servicesTL.to(card,
+          { x: exitX, y: exitY, opacity: 0, ease: "power2.in", duration: 0.3 },
+          startTime + 0.7
+        );
+      });
+
+      // PRICING SECTION STACK ANIMATION
+      const pricingCards = gsap.utils.toArray("#pricing-section .pricing-card");
+
+      const pricingTL = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#pricing-section",
+          start: "top top",
+          end: "+=250%",
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true
+        }
+      });
+
+      pricingTL.to(pricingCards[0], {
+        y: "80vh",
+        opacity: 0,
+        scale: 0.9,
+        ease: "power1.inOut"
+      });
+
+      pricingTL.to(pricingCards[1], {
+        y: "80vh",
+        opacity: 0,
+        scale: 0.9,
+        ease: "power1.inOut"
+      });
+
+      // CONTACT SECTION SCROLL REVEAL
+      gsap.from("#contact-section .contact-info", {
+        x: () => window.innerWidth > 768 ? -80 : 0,
+        y: () => window.innerWidth > 768 ? 0 : 30,
+        opacity: 0,
+        duration: 1.0,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: "#contact-section",
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      });
+
+      gsap.from("#contact-section .contact-form-wrapper", {
+        x: () => window.innerWidth > 768 ? 80 : 0,
+        y: () => window.innerWidth > 768 ? 0 : 30,
+        opacity: 0,
+        duration: 1.0,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: "#contact-section",
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      });
+
+      // PORTFOLIO CONTAINER SCROLL SCALE-UP
+      gsap.fromTo(".portfolio-flow-container", 
+        {
+          scale: () => window.innerWidth > 768 ? 0.5 : 0.6,
+          opacity: 0.2,
+          y: () => window.innerWidth > 768 ? 120 : 70,
+          transformOrigin: "bottom center"
+        },
+        {
+          scale: 1.0,
+          opacity: 1.0,
+          y: 0,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: "#portfolio-section",
+            start: "top bottom",
+            end: () => window.innerWidth > 768 ? "top 35%" : "top 45%",
+            scrub: 1
+          }
+        }
+      );
 
       // Force ScrollTrigger to calculate correct offsets for all pins and markers
       ScrollTrigger.refresh();
