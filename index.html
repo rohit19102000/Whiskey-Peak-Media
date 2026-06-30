@@ -3096,8 +3096,8 @@
         const scaleX = targetW / portal.offsetWidth;
         const scaleY = targetH / portal.offsetHeight;
         
-        // Center the portal vertically relative to the viewport (origin bottom center)
-        const yOffset = (portal.offsetHeight - window.innerHeight) / 2;
+        // Correct vertical centering math for scaled portal:
+        const yOffset = (targetH - window.innerHeight) / 2;
         
         return { scaleX, scaleY, y: yOffset };
       }
