@@ -1560,8 +1560,7 @@
       }
 
       #services-section {
-        padding: 80px 1.5rem !important;
-        height: 100vh !important;
+        padding: 0 1.5rem !important;
       }
       .services-layout-wrapper {
         display: flex !important;
@@ -1570,21 +1569,24 @@
         position: relative !important;
         justify-content: center !important;
         align-items: center !important;
-        gap: 0 !important;
+        gap: 20px !important;
+        box-sizing: border-box !important;
+        padding: 40px 0 !important;
       }
       .services-header {
-        position: absolute !important;
-        top: 8vh !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        width: 90% !important;
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        transform: none !important;
+        width: 100% !important;
         text-align: center !important;
-        margin: 0 !important;
+        margin: 0 0 20px 0 !important;
+        z-index: 10 !important;
       }
       .services-cards-wrapper {
-        position: absolute !important;
-        width: 90% !important;
-        height: 50vh !important;
+        position: relative !important;
+        width: 100% !important;
+        height: 380px !important;
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
@@ -1594,6 +1596,9 @@
         width: 100% !important;
         max-width: 360px !important;
         height: auto !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 auto !important;
         padding: 0 !important;
         display: flex !important;
         flex-direction: column !important;
