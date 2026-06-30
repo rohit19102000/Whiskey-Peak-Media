@@ -1947,8 +1947,7 @@
   </nav>
 
   <!-- GLOBAL BACKGROUND CANVAS (LAYER 1) -->
-  <canvas id="bg-canvas"></canvas>  <!-- Transition Overlay -->
-  <div id="hero-transition-overlay" style="position: fixed; background: #0a0a0f; z-index: 99; pointer-events: none; opacity: 0; transform-origin: top left; box-sizing: border-box; border: 1px solid rgba(200, 144, 58, 0.3);"></div>
+  <canvas id="bg-canvas"></canvas>
 
   <!-- SECTION 1: HERO PORTAL EXPANSION -->
   <section id="hero-section">
@@ -3003,14 +3002,7 @@
         duration: 1
       }, 0);
 
-      // 3. Fade in the transition overlay at the very end of the hero portal expansion (progress 0.99 -> 1.0)
-      heroTL.to("#hero-transition-overlay", {
-        opacity: 1,
-        duration: 0.01,
-        ease: "none"
-      }, 0.99);
-
-      // 4. Slide up #story-section via negative margin-top (so it doesn't conflict with ScrollTrigger pin transforms)
+      // 3. Slide up #story-section via negative margin-top (so it doesn't conflict with ScrollTrigger pin transforms)
       heroTL.fromTo("#story-section",
         { marginTop: "0px" },
         {
@@ -3021,25 +3013,33 @@
         1
       );
 
-      // 5. Shrink overlay from full-screen to target rect of the image container (progress 1.0 -> 2.0)
-      heroTL.to("#hero-transition-overlay", {
-        top: () => getTargetRect().top,
-        left: () => getTargetRect().left,
-        width: () => getTargetRect().width,
-        height: () => getTargetRect().height,
-        borderRadius: () => getTargetRect().borderRadius,
+      // 4. Shrink #hero-portal directly to target container's dimensions and center position (progress 1.0 -> 2.0)
+      heroTL.to("#hero-portal", {
+        scaleX: () => getHeroPortalTargetProps().scaleX,
+        scaleY: () => getHeroPortalTargetProps().scaleY,
+        y: () => getHeroPortalTargetProps().y,
+        borderRadius: 24,
+        borderColor: "rgba(200, 144, 58, 0.3)",
         ease: "power2.inOut",
         duration: 1
       }, 1);
 
-      // 6. Seamless swap: fade in the actual image container, fade out the overlay (progress 1.98 -> 2.0)
+      // 5. Counter-scale the grid canvas to keep the grid lines crisp and cropping inside the portal frame
+      heroTL.to("#grid-canvas", {
+        scaleX: () => 1 / getHeroPortalTargetProps().scaleX,
+        scaleY: () => 1 / getHeroPortalTargetProps().scaleY,
+        ease: "power2.inOut",
+        duration: 1
+      }, 1);
+
+      // 6. Seamless swap: fade in the actual image container, fade out the portal (progress 1.98 -> 2.0)
       heroTL.to("#story-img-container", {
         opacity: 1,
         duration: 0.02,
         ease: "none"
       }, 1.98);
 
-      heroTL.to("#hero-transition-overlay", {
+      heroTL.to("#hero-portal", {
         opacity: 0,
         duration: 0.02,
         ease: "none"
@@ -3082,6 +3082,24 @@
         const top = (window.innerHeight - height) / 2;
         const left = (window.innerWidth - width) / 2;
         return { top, left, width, height, borderRadius: 24 };
+      }
+
+      // Helper function to calculate scale and translation values for #hero-portal
+      function getHeroPortalTargetProps() {
+        const portal = document.getElementById('hero-portal');
+        const container = document.getElementById('story-img-container');
+        if (!portal || !container) return { scaleX: 1, scaleY: 1, y: 0 };
+        
+        const targetW = container.offsetWidth || (window.innerWidth > 768 ? 700 : 320);
+        const targetH = container.offsetHeight || (window.innerWidth > 768 ? 700 : 320);
+        
+        const scaleX = targetW / portal.offsetWidth;
+        const scaleY = targetH / portal.offsetHeight;
+        
+        // Center the portal vertically relative to the viewport (origin bottom center)
+        const yOffset = (portal.offsetHeight - window.innerHeight) / 2;
+        
+        return { scaleX, scaleY, y: yOffset };
       }
 
       // STORY SCROLL PINNING & GROWING IMAGE TIMELINE
