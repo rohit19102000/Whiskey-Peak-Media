@@ -14,12 +14,12 @@
   <style>
     /* DESIGN SYSTEM & TOKENS */
     :root {
-      --bg-color: #0a0a0f;
-      --bg-sec3: #0d0d12;
+      --bg-color: #ffffff;
+      --bg-sec3: #ffffff;
       --accent: #c8903a;
       --accent-glow: rgba(200, 144, 58, 0.15);
-      --text-primary: #e8e4dc;
-      --text-muted: #6b6860;
+      --text-primary: #121214;
+      --text-muted: #626168;
       --font-sans: 'Inter', sans-serif;
     }
 
@@ -58,6 +58,110 @@
       background: #e5ab58;
     }
 
+    /* SECTION SOLID BACKGROUNDS & LIGHT THEME COMPATIBILITY OVERRIDES */
+    #about-section,
+    #story-section,
+    #services-section,
+    #portfolio-section,
+    #pricing-section,
+    #reviews-section,
+    #faq-section,
+    #contact-section {
+      background-color: #ffffff !important;
+    }
+
+    #hero-portal,
+    #hero-portal h1,
+    #hero-portal p,
+    #hero-portal span,
+    #hero-portal a {
+      color: #e8e4dc !important;
+    }
+    #hero-portal .hero-title-small,
+    #hero-portal .hero-eyebrow,
+    #hero-portal .cta-btn {
+      color: var(--accent) !important;
+    }
+    #hero-portal .hero-subheading {
+      color: #9c9990 !important;
+    }
+
+    .story-card {
+      color: #e8e4dc !important;
+    }
+    .story-card h3,
+    .story-card .stage-title {
+      color: #e8e4dc !important;
+    }
+    .story-card p,
+    .story-card .stage-desc {
+      color: #9c9990 !important;
+    }
+
+    .pricing-card {
+      color: #e8e4dc !important;
+    }
+    .pricing-card .pricing-tier,
+    .pricing-card .pricing-price {
+      color: #e8e4dc !important;
+    }
+    .pricing-card .pricing-features li {
+      color: #9c9990 !important;
+    }
+
+    .portfolio-flow-card.empty-card {
+      background: #131112 !important;
+    }
+    .portfolio-flow-card .portfolio-flow-title {
+      color: #e8e4dc !important;
+    }
+    .portfolio-flow-card .portfolio-flow-desc {
+      color: #9c9990 !important;
+    }
+
+    .review-card {
+      color: #e8e4dc !important;
+    }
+    .review-card .review-text {
+      color: #9c9990 !important;
+    }
+    .review-card .review-meta h4 {
+      color: #e8e4dc !important;
+    }
+    .review-card .review-meta p {
+      color: #6b6860 !important;
+    }
+
+    .contact-form-wrapper .form-input {
+      color: #e8e4dc !important;
+      border-bottom-color: rgba(232, 228, 220, 0.2) !important;
+    }
+    .contact-form-wrapper .form-input:focus {
+      border-bottom-color: var(--accent) !important;
+    }
+    .contact-form-wrapper .form-label {
+      color: #9c9990 !important;
+    }
+
+    .faq-item {
+      background: #fdfdfd !important;
+      border: 1px solid rgba(200, 144, 58, 0.15) !important;
+    }
+    .faq-item:hover {
+      border-color: rgba(200, 144, 58, 0.4) !important;
+    }
+
+    footer,
+    footer .footer-copy {
+      color: #6b6860 !important;
+    }
+    footer .footer-link {
+      color: #9c9990 !important;
+    }
+    footer .footer-link:hover {
+      color: var(--accent) !important;
+    }
+
     /* TYPOGRAPHY */
     h1, h2, h3, h4, h5, h6 {
       font-weight: 300;
@@ -82,12 +186,12 @@
     }
 
     nav.nav-scrolled {
-      background: rgba(10, 10, 15, 0.85);
+      background: rgba(255, 255, 255, 0.85); /* Light glass scrolled navbar */
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(200, 144, 58, 0.15);
     }
     nav.nav-scrolled .nav-link {
-      color: var(--text-primary);
+      color: #121214 !important; /* Dark links when scrolled */
     }
     nav.nav-scrolled .nav-logo {
       color: var(--accent);
@@ -112,7 +216,7 @@
     }
 
     .nav-link {
-      color: #0a0a0f; /* Dark links initially on white background */
+      color: #e8e4dc; /* Light links initially on the dark hero portal */
       font-size: 0.85rem;
       text-decoration: none;
       letter-spacing: 0.05em;
@@ -141,15 +245,7 @@
 
     /* GLOBAL BACKGROUND CANVAS (LAYER 1) */
     #bg-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0; /* Hidden initially */
-      will-change: opacity;
+      display: none !important; /* Hidden completely */
     }
 
     /* SECTION 1: HERO (PINNED PORTAL EXPANSION) */
@@ -2722,7 +2818,7 @@
 
     function drawParticles() {
       updateParticles();
-      drawParticlesOnCanvas(bgCanvas, bgCtx);
+      // drawParticlesOnCanvas(bgCanvas, bgCtx); // Disabled background particles loop
       drawParticlesOnCanvas(gridCanvas, gridCtx);
     }
 
@@ -2849,12 +2945,7 @@
         duration: 1
       }, 0);
 
-      // Fade in the global background canvas during the last 10% of the portal expansion (progress 0.9 -> 1.0)
-      heroTL.to("#bg-canvas", {
-        opacity: 1,
-        ease: "none",
-        duration: 0.1
-      }, 0.9);
+      // Background canvas disabled for post-hero sections
 
       // ABOUT SECTION ANIMATIONS
       gsap.from(".about-hr", {
