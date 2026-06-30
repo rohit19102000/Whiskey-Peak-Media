@@ -58,7 +58,7 @@
       background: #e5ab58;
     }
 
-    /* SECTION SOLID BACKGROUNDS & LIGHT THEME COMPATIBILITY OVERRIDES */
+    /* PREMIUM WARM ALABASTER LIGHT THEME COMPATIBILITY OVERRIDES */
     #about-section,
     #story-section,
     #services-section,
@@ -67,9 +67,10 @@
     #reviews-section,
     #faq-section,
     #contact-section {
-      background-color: #ffffff !important;
+      background-color: #f9f8f6 !important; /* Warm luxury alabaster sand */
     }
 
+    /* Keep Hero Portal explicitly dark for maximum cinematic effect */
     #hero-portal,
     #hero-portal h1,
     #hero-portal p,
@@ -86,77 +87,133 @@
       color: #9c9990 !important;
     }
 
+    /* Story Cards: Clean frosted white glass */
     .story-card {
-      color: #e8e4dc !important;
+      background: rgba(255, 255, 255, 0.85) !important;
+      backdrop-filter: blur(12px) !important;
+      border: 1px solid rgba(200, 144, 58, 0.18) !important;
+      box-shadow: 0 15px 35px rgba(200, 144, 58, 0.05) !important;
+      color: #1a1917 !important;
     }
     .story-card h3,
     .story-card .stage-title {
-      color: #e8e4dc !important;
+      color: #1a1917 !important;
     }
     .story-card p,
     .story-card .stage-desc {
-      color: #9c9990 !important;
+      color: #706e69 !important;
     }
 
+    /* Pricing Cards: Luxury card blocks */
     .pricing-card {
-      color: #e8e4dc !important;
+      background: #ffffff !important;
+      border: 1px solid rgba(200, 144, 58, 0.15) !important;
+      box-shadow: 0 12px 30px rgba(200, 144, 58, 0.04) !important;
+      color: #1a1917 !important;
     }
-    .pricing-card .pricing-tier,
+    .pricing-card .pricing-tier {
+      color: #1a1917 !important;
+    }
     .pricing-card .pricing-price {
-      color: #e8e4dc !important;
+      color: #1a1917 !important;
     }
     .pricing-card .pricing-features li {
-      color: #9c9990 !important;
+      color: #706e69 !important;
+    }
+    .pricing-card .pricing-features li::before {
+      color: var(--accent) !important;
     }
 
+    /* Middle "Popular" Card: Premium dark luxury accent */
+    .pricing-card.popular {
+      background: #161513 !important;
+      border: 1px solid var(--accent) !important;
+      box-shadow: 0 20px 45px rgba(200, 144, 58, 0.2) !important;
+      color: #faf8f5 !important;
+    }
+    .pricing-card.popular .pricing-tier,
+    .pricing-card.popular .pricing-price {
+      color: #faf8f5 !important;
+    }
+    .pricing-card.popular .pricing-features li {
+      color: #a3a09a !important;
+    }
+
+    /* Showcase Section Empty Cards: Bronze glass */
     .portfolio-flow-card.empty-card {
-      background: #131112 !important;
+      background: rgba(200, 144, 58, 0.05) !important;
+      border: 1px solid rgba(200, 144, 58, 0.15) !important;
+      box-shadow: none !important;
     }
-    .portfolio-flow-card .portfolio-flow-title {
-      color: #e8e4dc !important;
+    .portfolio-flow-card.empty-card .empty-title {
+      color: rgba(200, 144, 58, 0.3) !important;
     }
-    .portfolio-flow-card .portfolio-flow-desc {
-      color: #9c9990 !important;
-    }
-
+    
+    /* Testimonial Review Cards: Sleek white cards */
     .review-card {
-      color: #e8e4dc !important;
+      background: #ffffff !important;
+      border: 1px solid rgba(200, 144, 58, 0.15) !important;
+      box-shadow: 0 10px 30px rgba(200, 144, 58, 0.03) !important;
+      color: #706e69 !important;
     }
     .review-card .review-text {
-      color: #9c9990 !important;
+      color: #706e69 !important;
     }
     .review-card .review-meta h4 {
-      color: #e8e4dc !important;
+      color: #1a1917 !important;
     }
     .review-card .review-meta p {
-      color: #6b6860 !important;
+      color: #918f89 !important;
     }
 
+    /* Contact Form: Premium white/ivory glass block */
+    .contact-form-wrapper {
+      background: rgba(255, 255, 255, 0.85) !important;
+      border: 1px solid rgba(200, 144, 58, 0.2) !important;
+      box-shadow: 0 20px 50px rgba(200, 144, 58, 0.06) !important;
+      backdrop-filter: blur(8px) !important;
+    }
     .contact-form-wrapper .form-input {
-      color: #e8e4dc !important;
-      border-bottom-color: rgba(232, 228, 220, 0.2) !important;
+      color: #1a1917 !important;
+      border-bottom-color: rgba(26, 25, 23, 0.15) !important;
     }
     .contact-form-wrapper .form-input:focus {
       border-bottom-color: var(--accent) !important;
     }
     .contact-form-wrapper .form-label {
-      color: #9c9990 !important;
+      color: #706e69 !important;
     }
 
+    /* FAQ Items: Clean gold border cards */
     .faq-item {
-      background: #fdfdfd !important;
+      background: #ffffff !important;
       border: 1px solid rgba(200, 144, 58, 0.15) !important;
+      box-shadow: 0 4px 15px rgba(200, 144, 58, 0.02) !important;
     }
     .faq-item:hover {
-      border-color: rgba(200, 144, 58, 0.4) !important;
+      border-color: rgba(200, 144, 58, 0.35) !important;
+    }
+    .faq-item.active {
+      background: rgba(200, 144, 58, 0.03) !important;
+    }
+    .faq-question {
+      color: #1a1917 !important;
+    }
+    .faq-answer p {
+      color: #706e69 !important;
     }
 
+    /* Footer: Grounded deep dark-charcoal theme */
+    footer {
+      background: #0f0e0d !important;
+      border-top: 1px solid rgba(200, 144, 58, 0.1) !important;
+    }
     footer,
     footer .footer-copy {
-      color: #6b6860 !important;
+      color: #706e69 !important;
     }
     footer .footer-link {
-      color: #9c9990 !important;
+      color: #a3a09a !important;
     }
     footer .footer-link:hover {
       color: var(--accent) !important;
