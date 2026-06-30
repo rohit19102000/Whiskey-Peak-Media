@@ -1947,7 +1947,8 @@
   </nav>
 
   <!-- GLOBAL BACKGROUND CANVAS (LAYER 1) -->
-  <canvas id="bg-canvas"></canvas>
+  <canvas id="bg-canvas"></canvas>  <!-- Transition Overlay -->
+  <div id="hero-transition-overlay" style="position: fixed; background: #0a0a0f; z-index: 99; pointer-events: none; opacity: 0; transform-origin: top left; box-sizing: border-box; border: 1px solid rgba(200, 144, 58, 0.3);"></div>
 
   <!-- SECTION 1: HERO PORTAL EXPANSION -->
   <section id="hero-section">
@@ -1963,37 +1964,6 @@
           <p class="hero-subheading">strategy, design, and code for businesses that mean it.</p>
           <a href="#story-section" class="cta-btn" id="hero-cta">See Our Work</a>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 2: ABOUT -->
-  <section id="about-section">
-    <hr class="about-hr">
-    <div class="about-grid">
-      <div class="about-col">
-        <span class="about-eyebrow">Who We Are</span>
-        <h2 class="about-title">Built for businesses ready to grow.</h2>
-      </div>
-      <div class="about-col">
-        <p class="about-body">Whiskey Peak Media is a full-service web studio. We partner with ambitious businesses to design, build, and launch websites that generate real results — fast-loading, beautifully crafted, and built to convert.</p>
-      </div>
-      <div class="about-col">
-        <div class="stats-stack">
-          <div class="stat-block">
-            <span class="stat-number">50+</span>
-            <span class="stat-label">Sites Launched</span>
-          </div>
-          <div class="stat-block">
-            <span class="stat-number">4.9★</span>
-            <span class="stat-label">Client Satisfaction</span>
-          </div>
-          <div class="stat-block">
-            <span class="stat-number">100%</span>
-            <span class="stat-label">On-Time Delivery</span>
-          </div>
-        </div>
-        <a href="#contact-section" class="cta-btn" id="about-cta">Start a Project →</a>
       </div>
     </div>
   </section>
@@ -2059,6 +2029,37 @@
           </div>
         </div>
         
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: ABOUT -->
+  <section id="about-section">
+    <hr class="about-hr">
+    <div class="about-grid">
+      <div class="about-col">
+        <span class="about-eyebrow">Who We Are</span>
+        <h2 class="about-title">Built for businesses ready to grow.</h2>
+      </div>
+      <div class="about-col">
+        <p class="about-body">Whiskey Peak Media is a full-service web studio. We partner with ambitious businesses to design, build, and launch websites that generate real results — fast-loading, beautifully crafted, and built to convert.</p>
+      </div>
+      <div class="about-col">
+        <div class="stats-stack">
+          <div class="stat-block">
+            <span class="stat-number">50+</span>
+            <span class="stat-label">Sites Launched</span>
+          </div>
+          <div class="stat-block">
+            <span class="stat-number">4.9★</span>
+            <span class="stat-label">Client Rating</span>
+          </div>
+          <div class="stat-block">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">On-Time Delivery</span>
+          </div>
+        </div>
+        <a href="#contact-section" class="cta-btn" id="about-cta">Start a Project →</a>
       </div>
     </div>
   </section>
@@ -3002,6 +3003,13 @@
         duration: 1
       }, 0);
 
+      // Fade in the transition overlay at the very end of the hero portal expansion (progress 0.99 -> 1.0)
+      heroTL.to("#hero-transition-overlay", {
+        opacity: 1,
+        duration: 0.01,
+        ease: "none"
+      }, 0.99);
+
       // Background canvas disabled for post-hero sections
 
       // ABOUT SECTION ANIMATIONS
@@ -3030,6 +3038,17 @@
         }
       });
 
+      // Helper function to calculate exact screen positions of #story-img-container
+      function getTargetRect() {
+        const container = document.getElementById('story-img-container');
+        if (!container) return { top: 0, left: 0, width: 0, height: 0, borderRadius: 24 };
+        const width = container.offsetWidth || (window.innerWidth > 768 ? 700 : 320);
+        const height = container.offsetHeight || (window.innerWidth > 768 ? 700 : 320);
+        const top = (window.innerHeight - height) / 2;
+        const left = (window.innerWidth - width) / 2;
+        return { top, left, width, height, borderRadius: 24 };
+      }
+
       // STORY SCROLL PINNING & GROWING IMAGE TIMELINE
       const storyGrowTL = gsap.timeline({
         scrollTrigger: {
@@ -3041,12 +3060,37 @@
         }
       });
 
-      // Set initial state for container
+      // Set initial state for container (hidden initially, transition overlay represents it first)
       gsap.set("#story-img-container", {
         width: () => window.innerWidth > 768 ? "700px" : "85vw",
         height: () => window.innerWidth > 768 ? "700px" : "85vw",
-        borderRadius: "24px"
+        borderRadius: "24px",
+        opacity: 0
       });
+
+      // Stage 0: Transition Overlay shrinking into the target rect (progress 0 -> 0.23)
+      storyGrowTL.to("#hero-transition-overlay", {
+        top: () => getTargetRect().top,
+        left: () => getTargetRect().left,
+        width: () => getTargetRect().width,
+        height: () => getTargetRect().height,
+        borderRadius: () => getTargetRect().borderRadius,
+        ease: "power2.inOut",
+        duration: 0.23
+      }, 0);
+
+      // Seamless swap: fade in the actual image container, fade out the overlay (progress 0.23 -> 0.25)
+      storyGrowTL.to("#story-img-container", {
+        opacity: 1,
+        duration: 0.02,
+        ease: "none"
+      }, 0.23);
+
+      storyGrowTL.to("#hero-transition-overlay", {
+        opacity: 0,
+        duration: 0.02,
+        ease: "none"
+      }, 0.23);
 
       // Stage 1: grows to 80vw x 80vh
       storyGrowTL.to("#story-img-container", {
