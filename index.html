@@ -3002,7 +3002,15 @@
         duration: 1
       }, 0);
 
-      // 3. Slide up #story-section via negative margin-top (so it doesn't conflict with ScrollTrigger pin transforms)
+      // 3. Fade out the hero text content during portal expansion
+      heroTL.to("#hero-text", {
+        opacity: 0,
+        y: -40,
+        ease: "power2.out",
+        duration: 0.8
+      }, 0);
+
+      // 4. Slide up #story-section via negative margin-top (so it doesn't conflict with ScrollTrigger pin transforms)
       heroTL.fromTo("#story-section",
         { marginTop: "0px" },
         {
@@ -3013,7 +3021,7 @@
         1
       );
 
-      // 4. Shrink #hero-portal directly to target container's dimensions and center position (progress 1.0 -> 2.0)
+      // 5. Shrink #hero-portal directly to target container's dimensions and center position (progress 1.0 -> 2.0)
       heroTL.to("#hero-portal", {
         scaleX: () => getHeroPortalTargetProps().scaleX,
         scaleY: () => getHeroPortalTargetProps().scaleY,
@@ -3024,26 +3032,13 @@
         duration: 1
       }, 1);
 
-      // 5. Counter-scale the grid canvas to keep the grid lines crisp and cropping inside the portal frame
+      // 6. Counter-scale the grid canvas to keep the grid lines crisp and cropping inside the portal frame
       heroTL.to("#grid-canvas", {
         scaleX: () => 1 / getHeroPortalTargetProps().scaleX,
         scaleY: () => 1 / getHeroPortalTargetProps().scaleY,
         ease: "power2.inOut",
         duration: 1
       }, 1);
-
-      // 6. Seamless swap: fade in the actual image container, fade out the portal (progress 1.98 -> 2.0)
-      heroTL.to("#story-img-container", {
-        opacity: 1,
-        duration: 0.02,
-        ease: "none"
-      }, 1.98);
-
-      heroTL.to("#hero-portal", {
-        opacity: 0,
-        duration: 0.02,
-        ease: "none"
-      }, 1.98);
 
       // Background canvas disabled for post-hero sections
 
@@ -3113,13 +3108,27 @@
         }
       });
 
-      // Set initial state for container (hidden initially, transition overlay represents it first)
+      // Set initial state for container (hidden initially, transition portal represents it first)
       gsap.set("#story-img-container", {
         width: () => window.innerWidth > 768 ? "700px" : "85vw",
         height: () => window.innerWidth > 768 ? "700px" : "85vw",
         borderRadius: "24px",
         opacity: 0
       });
+      gsap.set("#hero-portal", { opacity: 1 });
+
+      // Stage 0: Fade out #hero-portal and fade in #story-img-container (progress 0 -> 0.25)
+      storyGrowTL.to("#hero-portal", {
+        opacity: 0,
+        ease: "none",
+        duration: 0.25
+      }, 0);
+
+      storyGrowTL.to("#story-img-container", {
+        opacity: 1,
+        ease: "none",
+        duration: 0.25
+      }, 0);
 
       // Stage 1: grows to 80vw x 80vh
       storyGrowTL.to("#story-img-container", {
