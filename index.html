@@ -3035,14 +3035,12 @@
 
       // Set initial positions
       servicesCards.forEach((card) => {
+        const isRight = card.classList.contains('card-right');
         if (window.innerWidth > 768) {
-          if (card.classList.contains('card-right')) {
-            gsap.set(card, { x: "25vw", opacity: 0 });
-          } else {
-            gsap.set(card, { x: "-25vw", opacity: 0 });
-          }
+          gsap.set(card, { x: isRight ? "25vw" : "-25vw", opacity: 0 });
         } else {
-          gsap.set(card, { y: 50, opacity: 0 });
+          // Mobile: start off-screen left/right
+          gsap.set(card, { x: isRight ? "100vw" : "-100vw", opacity: 0 });
         }
       });
 
@@ -3060,19 +3058,18 @@
       // Setup transitions
       servicesCards.forEach((card, idx) => {
         const startTime = idx * 1.0;
-        const enterX = window.innerWidth > 768 ? (card.classList.contains('card-right') ? "25vw" : "-25vw") : "0vw";
-        const enterY = window.innerWidth > 768 ? "0px" : "50px";
+        const isRight = card.classList.contains('card-right');
+        const enterX = window.innerWidth > 768 ? (isRight ? "25vw" : "-25vw") : (isRight ? "100vw" : "-100vw");
 
         servicesTL.fromTo(card,
-          { x: enterX, y: enterY, opacity: 0 },
-          { x: "0vw", y: "0px", opacity: 1, ease: "power2.out", duration: 0.3 },
+          { x: enterX, y: 0, opacity: 0 },
+          { x: "0vw", y: 0, opacity: 1, ease: "power2.out", duration: 0.3 },
           startTime
         );
 
-        const exitX = window.innerWidth > 768 ? (card.classList.contains('card-right') ? "25vw" : "-25vw") : "0vw";
-        const exitY = window.innerWidth > 768 ? "0px" : "50px";
+        const exitX = window.innerWidth > 768 ? (isRight ? "25vw" : "-25vw") : (isRight ? "100vw" : "-100vw");
         servicesTL.to(card,
-          { x: exitX, y: exitY, opacity: 0, ease: "power2.in", duration: 0.3 },
+          { x: exitX, y: 0, opacity: 0, ease: "power2.in", duration: 0.3 },
           startTime + 0.7
         );
       });
