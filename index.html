@@ -2964,19 +2964,19 @@
       // Start loop
       mainLoop();
 
-      // HERO PORTAL EXPANSION
+      // HERO PORTAL EXPANSION & SHRINK TRANSITION
       const heroTL = gsap.timeline({
         scrollTrigger: {
           trigger: "#hero-section",
           start: "top top",
-          end: "+=100%",
+          end: "+=200%", // 100% for expansion, 100% for shrink/slide
           pin: true,
           scrub: 1,
           invalidateOnRefresh: true
         }
       });
 
-      // Portal expands to cover full screen
+      // 1. Portal expands to cover full screen
       heroTL.to("#hero-portal", {
         scale: () => {
           const portal = document.getElementById('hero-portal');
@@ -2990,7 +2990,7 @@
         duration: 1
       }, 0);
 
-      // Counter-scale the inner canvas to keep it unscaled and crisp on the screen
+      // 2. Counter-scale the inner canvas to keep it unscaled and crisp on the screen
       gsap.set("#grid-canvas", { xPercent: -50 });
       heroTL.to("#grid-canvas", {
         scale: () => {
@@ -3003,12 +3003,47 @@
         duration: 1
       }, 0);
 
-      // Fade in the transition overlay at the very end of the hero portal expansion (progress 0.99 -> 1.0)
+      // 3. Fade in the transition overlay at the very end of the hero portal expansion (progress 0.99 -> 1.0)
       heroTL.to("#hero-transition-overlay", {
         opacity: 1,
         duration: 0.01,
         ease: "none"
       }, 0.99);
+
+      // 4. Slide up #story-section via negative margin-top (so it doesn't conflict with ScrollTrigger pin transforms)
+      heroTL.fromTo("#story-section",
+        { marginTop: "0px" },
+        {
+          marginTop: () => -window.innerHeight + "px",
+          ease: "none",
+          duration: 1
+        },
+        1
+      );
+
+      // 5. Shrink overlay from full-screen to target rect of the image container (progress 1.0 -> 2.0)
+      heroTL.to("#hero-transition-overlay", {
+        top: () => getTargetRect().top,
+        left: () => getTargetRect().left,
+        width: () => getTargetRect().width,
+        height: () => getTargetRect().height,
+        borderRadius: () => getTargetRect().borderRadius,
+        ease: "power2.inOut",
+        duration: 1
+      }, 1);
+
+      // 6. Seamless swap: fade in the actual image container, fade out the overlay (progress 1.98 -> 2.0)
+      heroTL.to("#story-img-container", {
+        opacity: 1,
+        duration: 0.02,
+        ease: "none"
+      }, 1.98);
+
+      heroTL.to("#hero-transition-overlay", {
+        opacity: 0,
+        duration: 0.02,
+        ease: "none"
+      }, 1.98);
 
       // Background canvas disabled for post-hero sections
 
@@ -3067,30 +3102,6 @@
         borderRadius: "24px",
         opacity: 0
       });
-
-      // Stage 0: Transition Overlay shrinking into the target rect (progress 0 -> 0.23)
-      storyGrowTL.to("#hero-transition-overlay", {
-        top: () => getTargetRect().top,
-        left: () => getTargetRect().left,
-        width: () => getTargetRect().width,
-        height: () => getTargetRect().height,
-        borderRadius: () => getTargetRect().borderRadius,
-        ease: "power2.inOut",
-        duration: 0.23
-      }, 0);
-
-      // Seamless swap: fade in the actual image container, fade out the overlay (progress 0.23 -> 0.25)
-      storyGrowTL.to("#story-img-container", {
-        opacity: 1,
-        duration: 0.02,
-        ease: "none"
-      }, 0.23);
-
-      storyGrowTL.to("#hero-transition-overlay", {
-        opacity: 0,
-        duration: 0.02,
-        ease: "none"
-      }, 0.23);
 
       // Stage 1: grows to 80vw x 80vh
       storyGrowTL.to("#story-img-container", {
