@@ -2856,19 +2856,6 @@
         duration: 0.1
       }, 0.9);
 
-      // Animate the hero text from the bottom to the center along with the background portal expansion
-      heroTL.fromTo(".hero-text-wrapper",
-        {
-          y: () => window.innerWidth > 768 ? "15vh" : "18vh"
-        },
-        {
-          y: "0px",
-          ease: "none",
-          duration: 1
-        },
-        0
-      );
-
       // ABOUT SECTION ANIMATIONS
       gsap.from(".about-hr", {
         scaleX: 0,
