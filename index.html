@@ -1498,11 +1498,11 @@
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        opacity: 0 !important;
+        opacity: 0;
         pointer-events: none !important;
       }
       .story-stage.active {
-        opacity: 1 !important;
+        opacity: 1;
         pointer-events: auto !important;
       }
       .story-card {
@@ -1606,8 +1606,7 @@
         justify-content: center !important;
         text-align: center !important;
         gap: 1rem !important;
-        opacity: 0 !important;
-        transform: none !important;
+        opacity: 0;
       }
       .service-card.card-right,
       .service-card.card-left {
@@ -1684,8 +1683,9 @@
       }
       .pricing-card {
         position: absolute !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 auto !important;
         height: 400px !important;
         padding: 4.5rem 1.5rem 1.5rem 1.5rem !important;
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5) !important;
