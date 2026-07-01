@@ -1806,7 +1806,7 @@
         padding: 1.5rem 1.2rem !important;
         margin: 0 !important;
         background: rgba(13, 13, 18, 0.85) !important;
-        backdrop-filter: blur(10px) !important;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
         border: 1px solid rgba(200, 144, 58, 0.12) !important;
         border-radius: 12px !important;
         width: 100% !important;
@@ -2064,6 +2064,11 @@
       }
       .review-card {
         padding: 1.5rem;
+      }
+      
+      /* Mobile will-change layers budget control */
+      .story-card, .story-stage, #story-img-container, .service-card {
+        will-change: auto !important;
       }
     }
   </style>
@@ -3016,7 +3021,8 @@
       particles = [];
       const w = window.innerWidth;
       const h = window.innerHeight;
-      for (let i = 0; i < maxParticles; i++) {
+      const count = window.innerWidth <= 768 ? 30 : 80;
+      for (let i = 0; i < count; i++) {
         const isAmber = Math.random() > 0.5;
         particles.push({
           x: Math.random() * w,
@@ -3081,6 +3087,9 @@
 
     function drawParticles() {
       updateParticles();
+      if (window.innerWidth <= 768 && !isHeroVisible) {
+        return;
+      }
       // drawParticlesOnCanvas(bgCanvas, bgCtx); // Disabled background particles loop
       drawParticlesOnCanvas(gridCanvas, gridCtx);
     }
@@ -3136,14 +3145,48 @@
       initParticles();
     }
 
-    window.addEventListener('resize', resizeCanvases);
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resizeCanvases, 150);
+    });
+
+    let isHeroVisible = true;
+    let isStoryVisible = true;
+
+    if (window.innerWidth <= 768) {
+      const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isHeroVisible = entry.isIntersecting;
+        });
+      }, { threshold: 0 });
+      const heroSec = document.getElementById('hero-section');
+      if (heroSec) heroObserver.observe(heroSec);
+
+      const storyObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isStoryVisible = entry.isIntersecting;
+        });
+      }, { threshold: 0 });
+      const storySec = document.getElementById('story-section');
+      if (storySec) storyObserver.observe(storySec);
+    }
 
     // ==========================================
     // MAIN REQUEST ANIMATION FRAME LOOP
     // ==========================================
     function mainLoop() {
-      drawParticles();
-      drawScanlines();
+      if (window.innerWidth <= 768) {
+        if (isHeroVisible) {
+          drawParticles();
+        }
+        if (isStoryVisible) {
+          drawScanlines();
+        }
+      } else {
+        drawParticles();
+        drawScanlines();
+      }
       requestAnimationFrame(mainLoop);
     }
 
@@ -3159,7 +3202,7 @@
       } else {
         nav.classList.remove('nav-scrolled');
       }
-    });
+    }, { passive: true });
 
     // SETUP WEB PAGE ANIMATIONS AFTER DOM LOAD
     document.addEventListener('DOMContentLoaded', () => {
@@ -3188,6 +3231,7 @@
         onEnter: () => {
           const portal = document.getElementById("hero-portal");
           if (portal) {
+            document.body.appendChild(portal);
             gsap.set(portal, {
               position: "fixed",
               top: 0,
@@ -3301,7 +3345,6 @@
         updateTargetRect();
 
         const getTargetValue = (prop) => {
-          updateTargetRect();
           return targetRect[prop] + (prop === 'borderRadius' ? '' : 'px');
         };
 
@@ -3350,7 +3393,6 @@
           onEnter: () => {
             const portal = document.getElementById("hero-portal");
             if (portal) {
-              document.body.appendChild(portal);
               gsap.set(portal, {
                 position: "fixed",
                 top: 0,
@@ -3371,27 +3413,16 @@
             }
           },
           onLeave: () => {
-            // Append portal inside the image container so it scrolls naturally with the page, eliminating layout thrashing
             const portal = document.getElementById("hero-portal");
-            const imgContainer = document.getElementById("story-img-container");
-            if (portal && imgContainer) {
-              imgContainer.appendChild(portal);
+            if (portal) {
               gsap.set(portal, {
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                borderRadius: "24px",
-                margin: 0
+                zIndex: 9999
               });
             }
           },
           onEnterBack: () => {
             const portal = document.getElementById("hero-portal");
             if (portal) {
-              document.body.appendChild(portal);
-              updateTargetRect();
               gsap.set(portal, {
                 position: "fixed",
                 width: targetRect.width + "px",
@@ -3425,6 +3456,7 @@
 
         // Step 3: Disappear on scroll to reveal the image
         const fadeTween = gsap.to("#hero-portal", {
+          top: () => targetRect.top - window.innerHeight * 0.3,
           opacity: 0,
           ease: "none"
         });
@@ -3468,7 +3500,6 @@
           onEnter: () => {
             const portal = document.getElementById("hero-portal");
             if (portal) {
-              document.body.appendChild(portal);
               gsap.set(portal, {
                 position: "fixed",
                 top: 0,
@@ -3491,7 +3522,6 @@
           onEnterBack: () => {
             const portal = document.getElementById("hero-portal");
             if (portal) {
-              document.body.appendChild(portal);
               gsap.set(portal, {
                 position: "fixed",
                 top: 0,
