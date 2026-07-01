@@ -3197,9 +3197,10 @@
           },
           onEnterBack: () => {
             const portal = document.getElementById("hero-portal");
-            if (portal) {
-              // Clear only fixed layout overrides, do NOT clear transform, scale, or borderRadius 
-              // to let heroTL scrub them out smoothly.
+            const wrapper = document.querySelector(".hero-wrapper");
+            if (portal && wrapper) {
+              // Relocate portal back to hero wrapper at the exact pixel the pin reactivates
+              wrapper.appendChild(portal);
               gsap.set(portal, {
                 position: "",
                 top: "",
@@ -3207,8 +3208,13 @@
                 width: "",
                 height: "",
                 zIndex: "",
+                opacity: "",
+                visibility: "",
+                pointerEvents: "",
                 margin: ""
               });
+              // Restore visibility of text and canvas in hero section
+              gsap.set(["#hero-text", "#grid-canvas"], { opacity: "" });
             }
           }
         }
@@ -3402,25 +3408,13 @@
             }
           },
           onLeaveBack: () => {
-            // Relocate portal back to hero section wrapper only when scrolling back above top 90%
             const portal = document.getElementById("hero-portal");
-            const wrapper = document.querySelector(".hero-wrapper");
-            if (portal && wrapper) {
-              wrapper.appendChild(portal);
+            if (portal) {
               gsap.set(portal, {
-                position: "",
-                top: "",
-                left: "",
-                width: "",
-                height: "",
-                zIndex: "",
-                opacity: "",
-                visibility: "",
-                pointerEvents: "",
-                margin: ""
+                opacity: 1,
+                visibility: "visible",
+                pointerEvents: "auto"
               });
-              // Restore text content and grid warp canvas visibility in hero section
-              gsap.set(["#hero-text", "#grid-canvas"], { opacity: "" });
             }
           }
         });
@@ -3515,23 +3509,12 @@
           },
           onLeaveBack: () => {
             const portal = document.getElementById("hero-portal");
-            const wrapper = document.querySelector(".hero-wrapper");
-            if (portal && wrapper) {
-              wrapper.appendChild(portal);
+            if (portal) {
               gsap.set(portal, {
-                position: "",
-                top: "",
-                left: "",
-                width: "",
-                height: "",
-                zIndex: "",
-                opacity: "",
-                visibility: "",
-                pointerEvents: "",
-                margin: ""
+                opacity: 1,
+                visibility: "visible",
+                pointerEvents: "auto"
               });
-              // Restore visibility of text and canvas in hero section
-              gsap.set(["#hero-text", "#grid-canvas"], { opacity: "" });
             }
           },
           onUpdate: (self) => {
