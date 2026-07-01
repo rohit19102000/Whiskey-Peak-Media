@@ -89,17 +89,33 @@
       color: #9c9990 !important;
     }
 
-    /* HORIZONTAL SINGLE ROW REVIEWS MARQUEE OVERRIDES */
+    /* VELTORA TESTIMONIALS SECTION STYLE OVERRIDES */
     .reviews-marquee-grid {
       display: none !important; /* Hide old vertical marquee layout */
     }
 
+    /* Floating glass-panel marquee container matching Veltora */
     .reviews-marquee-wrapper {
       width: 100%;
+      max-width: 1100px;
+      margin: 40px auto 0 auto;
       overflow: hidden;
       position: relative;
-      padding: 40px 0;
+      padding: 40px 24px !important;
+      background: rgba(28, 19, 5, 0.8) !important; /* Premium rich gold-bronze dark background */
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border: 1px solid rgba(143, 104, 32, 0.3) !important; /* Matching gold/bronze border */
+      border-radius: 20px !important;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65) !important; /* Deep luxury shadow */
+      animation: reviewsFloatTilt 6s ease-in-out infinite alternate;
     }
+    
+    @keyframes reviewsFloatTilt {
+      0% { transform: translateY(0) rotate(0.5deg); }
+      100% { transform: translateY(-8px) rotate(-0.5deg); }
+    }
+
     .reviews-marquee-row {
       display: flex;
       width: 100%;
@@ -107,9 +123,9 @@
     }
     .reviews-marquee-track {
       display: flex;
-      gap: 2rem;
+      gap: 1.5rem;
       width: max-content;
-      animation: reviewsScrollLeft 35s linear infinite;
+      animation: reviewsScrollLeft 32s linear infinite;
       will-change: transform;
     }
     .reviews-marquee-row:hover .reviews-marquee-track {
@@ -121,29 +137,28 @@
     }
 
     .review-card {
-      width: 320px !important; /* Smaller cards */
-      height: 220px !important; /* Smaller height */
-      padding: 1.5rem !important; /* Smaller padding */
+      width: 330px !important;
+      height: 230px !important;
+      padding: 1.8rem !important;
       display: flex !important;
       flex-direction: column !important;
       justify-content: space-between !important;
       flex-shrink: 0 !important;
-      font-size: 0.82rem !important;
-      background: #0d0d12 !important; /* Matches packages solid dark color */
-      border: 1px solid rgba(200, 144, 58, 0.1) !important;
+      background: rgba(20, 16, 9, 0.9) !important; /* Premium dark gold-charcoal */
+      border: 1px solid rgba(143, 104, 32, 0.3) !important; /* Solid bronze-gold border */
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
-      border-radius: 14px !important;
+      border-radius: 12px !important;
       transition: border-color 0.3s ease, transform 0.3s ease !important;
     }
     .review-card:hover {
       transform: translateY(-4px) !important;
-      border-color: rgba(200, 144, 58, 0.3) !important;
+      border-color: rgba(200, 144, 58, 0.6) !important;
     }
     .review-card .review-text {
-      font-size: 0.82rem !important;
-      line-height: 1.45 !important;
-      color: #9c9990 !important;
+      font-size: 0.85rem !important;
+      line-height: 1.6 !important;
+      color: #e8e4dc !important; /* Highly visible light text */
       font-style: italic !important;
       margin: 0 !important;
       flex-grow: 1 !important;
@@ -159,23 +174,25 @@
       height: 36px !important;
       font-size: 0.8rem !important;
       border-radius: 50% !important;
-      background: rgba(200, 144, 58, 0.1) !important;
-      border: 1px solid rgba(200, 144, 58, 0.2) !important;
+      background: rgba(207, 162, 64, 0.1) !important; /* Veltora gold background tint */
+      border: 1px solid rgba(207, 162, 64, 0.25) !important; /* Veltora gold border tint */
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      color: var(--accent) !important;
+      color: #cfa240 !important; /* Veltora gold color */
       font-weight: 600 !important;
     }
     .review-card .review-meta h4 {
       font-size: 0.82rem !important;
-      color: #e8e4dc !important;
+      color: #cfa240 !important; /* Veltora gold text for name */
+      text-transform: uppercase !important;
+      letter-spacing: 0.08em !important;
       margin: 0 !important;
       font-weight: 600 !important;
     }
     .review-card .review-meta p {
       font-size: 0.72rem !important;
-      color: #6b6860 !important;
+      color: #a19e95 !important; /* Veltora steel grey */
       margin: 0 !important;
     }
 
