@@ -102,7 +102,7 @@
       overflow: hidden;
       position: relative;
       padding: 40px 24px !important;
-      background: rgba(28, 19, 5, 0.8) !important; /* Premium rich gold-bronze dark background */
+      background: rgba(0, 0, 0, 0.8) !important; /* Transparent black background matching Veltora layout */
       backdrop-filter: blur(20px) !important;
       -webkit-backdrop-filter: blur(20px) !important;
       border: 1px solid rgba(143, 104, 32, 0.3) !important; /* Matching gold/bronze border */
@@ -125,8 +125,13 @@
       display: flex;
       gap: 1.5rem;
       width: max-content;
-      animation: reviewsScrollLeft 32s linear infinite;
       will-change: transform;
+    }
+    .reviews-track-left {
+      animation: reviewsScrollLeft 32s linear infinite;
+    }
+    .reviews-track-right {
+      animation: reviewsScrollRight 32s linear infinite;
     }
     .reviews-marquee-row:hover .reviews-marquee-track {
       animation-play-state: paused;
@@ -134,6 +139,10 @@
     @keyframes reviewsScrollLeft {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
+    }
+    @keyframes reviewsScrollRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
     }
 
     .review-card {
@@ -2576,8 +2585,10 @@
     
     <!-- Single Row Horizontal Scrolling Reviews -->
     <div class="reviews-marquee-wrapper">
+      
+      <!-- Row 1: Scrolling Left -->
       <div class="reviews-marquee-row">
-        <div class="reviews-marquee-track">
+        <div class="reviews-marquee-track reviews-track-left">
           <!-- Card 1 -->
           <div class="review-card">
             <div class="review-stars">★★★★★</div>
@@ -2611,42 +2622,6 @@
               <div class="review-meta">
                 <h4>Alina H.</h4>
                 <p>Director, Aethel Watches</p>
-              </div>
-            </div>
-          </div>
-          <!-- Card 4 -->
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"Their scrollytelling implementation blew our minds. It's rare to find an agency that couples high design with clean code."</p>
-            <div class="review-author">
-              <div class="review-avatar">VS</div>
-              <div class="review-meta">
-                <h4>Vikram S.</h4>
-                <p>Director, Orion Creative</p>
-              </div>
-            </div>
-          </div>
-          <!-- Card 5 -->
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"Outstanding engineering and speed. The AI visual elements they built are incredibly premium and operate flawlessly."</p>
-            <div class="review-author">
-              <div class="review-avatar">JM</div>
-              <div class="review-meta">
-                <h4>Julian M.</h4>
-                <p>Founder, Aether AI</p>
-              </div>
-            </div>
-          </div>
-          <!-- Card 6 -->
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"They built our portfolio with smooth GSAP animations that work perfectly on all mobile devices. Highly recommended."</p>
-            <div class="review-author">
-              <div class="review-avatar">ER</div>
-              <div class="review-meta">
-                <h4>Elena R.</h4>
-                <p>Founder, Apex Agency</p>
               </div>
             </div>
           </div>
@@ -2688,6 +2663,50 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      
+      <!-- Row 2: Scrolling Right -->
+      <div class="reviews-marquee-row" style="margin-top: 1.5rem;">
+        <div class="reviews-marquee-track reviews-track-right">
+          <!-- Card 4 -->
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Their scrollytelling implementation blew our minds. It's rare to find an agency that couples high design with clean code."</p>
+            <div class="review-author">
+              <div class="review-avatar">VS</div>
+              <div class="review-meta">
+                <h4>Vikram S.</h4>
+                <p>Director, Orion Creative</p>
+              </div>
+            </div>
+          </div>
+          <!-- Card 5 -->
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Outstanding engineering and speed. The AI visual elements they built are incredibly premium and operate flawlessly."</p>
+            <div class="review-author">
+              <div class="review-avatar">JM</div>
+              <div class="review-meta">
+                <h4>Julian M.</h4>
+                <p>Founder, Aether AI</p>
+              </div>
+            </div>
+          </div>
+          <!-- Card 6 -->
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"They built our portfolio with smooth GSAP animations that work perfectly on all mobile devices. Highly recommended."</p>
+            <div class="review-author">
+              <div class="review-avatar">ER</div>
+              <div class="review-meta">
+                <h4>Elena R.</h4>
+                <p>Founder, Apex Agency</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Duplicate Cards for Seamless Infinite Scroll Loop -->
           <!-- Card 4 Duplicate -->
           <div class="review-card">
             <div class="review-stars">★★★★★</div>
@@ -2726,6 +2745,7 @@
           </div>
         </div>
       </div>
+      
     </div>
   </section>
 
