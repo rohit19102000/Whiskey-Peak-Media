@@ -3177,7 +3177,40 @@
           end: "+=200%",
           pin: true,
           scrub: 1,
-          invalidateOnRefresh: true
+          invalidateOnRefresh: true,
+          onLeave: () => {
+            const portal = document.getElementById("hero-portal");
+            if (portal) {
+              gsap.set(portal, {
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100vw",
+                height: "100vh",
+                zIndex: 9999,
+                transform: "none",
+                scale: 1,
+                margin: 0,
+                borderRadius: 0
+              });
+            }
+          },
+          onEnterBack: () => {
+            const portal = document.getElementById("hero-portal");
+            if (portal) {
+              // Clear only fixed layout overrides, do NOT clear transform, scale, or borderRadius 
+              // to let heroTL scrub them out smoothly.
+              gsap.set(portal, {
+                position: "",
+                top: "",
+                left: "",
+                width: "",
+                height: "",
+                zIndex: "",
+                margin: ""
+              });
+            }
+          }
         }
       });
 
@@ -3233,6 +3266,207 @@
           trigger: "#about-section",
           start: "top 80%",
           toggleActions: "play none none reverse"
+        }
+      });
+
+      // BRIDGE SCROLL-DRIVEN ANIMATION BETWEEN HERO AND STORY SECTIONS
+      let targetRect = { width: 700, height: 700, top: 0, left: 0 };
+      function updateTargetRect() {
+        const imgContainer = document.getElementById('story-img-container');
+        if (imgContainer) {
+          const containerRect = imgContainer.getBoundingClientRect();
+          targetRect = {
+            width: containerRect.width,
+            height: containerRect.height,
+            left: containerRect.left,
+            top: window.innerHeight - containerRect.height // Positioned at the bottom center of the viewport
+          };
+        }
+      }
+
+      // Initial rect math calculation
+      updateTargetRect();
+
+      const getTargetValue = (prop) => {
+        updateTargetRect();
+        return targetRect[prop] + (prop === 'borderRadius' ? '' : 'px');
+      };
+
+      // Recalculate on refresh
+      ScrollTrigger.addEventListener("refresh", () => {
+        updateTargetRect();
+      });
+
+      // Step 2: Shrink and move simultaneously (quick triggered timeline)
+      const shrinkTL = gsap.timeline({
+        defaults: { ease: "power2.inOut" }
+      });
+
+      // Portal shrinks, moves to bottom center, and becomes slightly transparent over 0.6s
+      shrinkTL.to("#hero-portal", {
+        width: () => getTargetValue('width'),
+        height: () => getTargetValue('height'),
+        top: () => getTargetValue('top'),
+        left: () => getTargetValue('left'),
+        borderRadius: "24px",
+        opacity: 0.85, // Make the black div a bit more transparent
+        duration: 0.6
+      }, 0);
+
+      // Keep heading/text briefly, then fade out smoothly before reaching next section
+      shrinkTL.to("#hero-text", {
+        opacity: 0,
+        duration: 0.35,
+        ease: "power1.out"
+      }, 0.15);
+
+      // Fade out grid canvas
+      shrinkTL.to("#grid-canvas", {
+        opacity: 0,
+        duration: 0.35,
+        ease: "power1.out"
+      }, 0.15);
+
+      ScrollTrigger.create({
+        trigger: "#story-section",
+        start: "top 90%",
+        end: "top 40%",
+        toggleActions: "play none reverse none", // Triggered at the start of scroll, reverse play triggered on enter-back (top 40%)
+        animation: shrinkTL,
+        invalidateOnRefresh: true,
+        onEnter: () => {
+          const portal = document.getElementById("hero-portal");
+          if (portal) {
+            document.body.appendChild(portal);
+            gsap.set(portal, {
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              zIndex: 9999,
+              transform: "none",
+              scale: 1,
+              opacity: 1,
+              visibility: "visible",
+              pointerEvents: "auto",
+              borderRadius: 0,
+              margin: 0
+            });
+            // Ensure text content and canvas start fully visible for the fade-out timeline
+            gsap.set(["#hero-text", "#grid-canvas"], { opacity: 1 });
+          }
+        },
+        onEnterBack: () => {
+          const portal = document.getElementById("hero-portal");
+          if (portal) {
+            document.body.appendChild(portal);
+            gsap.set(portal, {
+              position: "fixed",
+              zIndex: 9999,
+              transform: "none",
+              scale: 1,
+              opacity: 0.85,
+              visibility: "visible",
+              pointerEvents: "auto",
+              margin: 0
+            });
+            // Keep text content and canvas hidden when entering back from the bottom
+            gsap.set(["#hero-text", "#grid-canvas"], { opacity: 0 });
+          }
+        },
+        onLeaveBack: () => {
+          // Relocate portal back to hero section wrapper only when scrolling back above top 90%
+          const portal = document.getElementById("hero-portal");
+          const wrapper = document.querySelector(".hero-wrapper");
+          if (portal && wrapper) {
+            wrapper.appendChild(portal);
+            gsap.set(portal, {
+              position: "",
+              top: "",
+              left: "",
+              width: "",
+              height: "",
+              zIndex: "",
+              transform: "",
+              scale: "",
+              borderRadius: "",
+              opacity: "",
+              visibility: "",
+              pointerEvents: "",
+              margin: ""
+            });
+            // Restore text content and grid warp canvas visibility in hero section
+            gsap.set(["#hero-text", "#grid-canvas"], { opacity: "" });
+          }
+        }
+      });
+
+      // Step 3: Disappear on scroll to reveal the image
+      const fadeTween = gsap.to("#hero-portal", {
+        opacity: 0,
+        ease: "none"
+      });
+
+      ScrollTrigger.create({
+        trigger: "#story-section",
+        start: "top 40%",
+        end: "top 10%",
+        scrub: 1,
+        animation: fadeTween,
+        invalidateOnRefresh: true,
+        onEnter: () => {
+          const portal = document.getElementById("hero-portal");
+          if (portal && portal.parentNode !== document.body) {
+            document.body.appendChild(portal);
+            gsap.set(portal, {
+              position: "fixed",
+              zIndex: 9999,
+              transform: "none",
+              scale: 1,
+              opacity: 1,
+              visibility: "visible",
+              pointerEvents: "auto",
+              margin: 0
+            });
+          }
+        },
+        onEnterBack: () => {
+          const portal = document.getElementById("hero-portal");
+          if (portal && portal.parentNode !== document.body) {
+            document.body.appendChild(portal);
+            gsap.set(portal, {
+              position: "fixed",
+              zIndex: 9999,
+              transform: "none",
+              scale: 1,
+              opacity: 1,
+              visibility: "visible",
+              pointerEvents: "auto",
+              margin: 0
+            });
+          }
+        },
+        onUpdate: (self) => {
+          const portal = document.getElementById("hero-portal");
+          const imgContainer = document.getElementById('story-img-container');
+          if (portal && imgContainer) {
+            const rect = imgContainer.getBoundingClientRect();
+            // Lock position onto the live image container, keeping it covered at the bottom center until it scrolls up
+            const topValue = Math.min(window.innerHeight - rect.height, rect.top);
+            portal.style.top = topValue + "px";
+            portal.style.left = rect.left + "px";
+            portal.style.width = rect.width + "px";
+            portal.style.height = rect.height + "px";
+
+            if (self.progress >= 0.99) {
+              portal.style.visibility = "hidden";
+              portal.style.pointerEvents = "none";
+            } else {
+              portal.style.visibility = "visible";
+              portal.style.pointerEvents = "auto";
+            }
+          }
         }
       });
 
