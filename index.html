@@ -91,99 +91,154 @@
 
     /* VELTORA TESTIMONIALS SECTION STYLE OVERRIDES */
     #reviews-section {
-      padding-left: 0 !important;
-      padding-right: 0 !important;
+      position: relative;
+      padding: 120px 8% !important;
+      background-color: transparent;
+      z-index: 5;
+      overflow: hidden;
     }
     .reviews-marquee-grid {
       display: none !important; /* Hide old vertical marquee layout */
     }
 
-    /* Full-width edge-to-edge glass-panel marquee container matching Veltora style */
+    /* Veltora Testimonials Container */
     .reviews-marquee-wrapper {
       width: 100% !important;
-      max-width: none !important;
-      margin: 40px 0 0 0 !important;
-      overflow: hidden;
-      position: relative;
-      padding: 40px 0 !important;
+      max-width: 1100px !important;
+      margin: 40px auto 0 auto !important;
+      overflow: hidden !important;
+      position: relative !important;
+      padding: 2.5rem !important; /* p-10 */
       background: rgba(0, 0, 0, 0.8) !important; /* Transparent black background matching Veltora layout */
       backdrop-filter: blur(20px) !important;
       -webkit-backdrop-filter: blur(20px) !important;
-      border-top: 1px solid rgba(143, 104, 32, 0.3) !important; /* Matching gold/bronze top border */
-      border-bottom: 1px solid rgba(143, 104, 32, 0.3) !important; /* Matching gold/bronze bottom border */
-      border-left: none !important;
-      border-right: none !important;
-      border-radius: 0 !important;
+      border: 1px solid rgba(143, 104, 32, 0.3) !important; /* Gold/bronze border */
+      border-radius: 20px !important;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65) !important; /* Deep luxury shadow */
-      animation: reviewsFloatTilt 6s ease-in-out infinite alternate;
-    }
-    
-    @keyframes reviewsFloatTilt {
-      0% { transform: translateY(0) rotate(0.5deg); }
-      100% { transform: translateY(-8px) rotate(-0.5deg); }
+      height: 560px !important;
+      animation: reviewsFloatTilt 6s ease-in-out infinite alternate !important;
+      text-align: left !important;
     }
 
-    .reviews-marquee-row {
-      display: flex;
-      width: 100%;
-      overflow: hidden;
+    @keyframes reviewsFloatTilt {
+      0% { transform: perspective(1000px) rotateX(2deg) rotateY(-4deg) rotate(-0.5deg) translateY(0); }
+      100% { transform: perspective(1000px) rotateX(1.5deg) rotateY(-3deg) rotate(-0.25deg) translateY(-8px); }
     }
-    .reviews-marquee-track {
-      display: flex;
-      gap: 1.5rem;
-      width: max-content;
+
+    /* 3 Column Grid for Vertical Columns */
+    .reviews-columns-grid {
+      display: grid !important;
+      grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+      gap: 1.5rem !important;
+      height: 100% !important;
+      overflow: hidden !important;
+    }
+
+    @media (min-width: 768px) {
+      .reviews-columns-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      }
+    }
+    @media (min-width: 1024px) {
+      .reviews-columns-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      }
+    }
+
+    .reviews-column {
+      display: flex !important;
+      flex-direction: column !important;
+      overflow: hidden !important;
+      position: relative !important;
+      height: 100% !important;
+    }
+
+    /* Fade top/bottom edge gradients of column */
+    .reviews-column::before,
+    .reviews-column::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .reviews-column::before {
+      top: 0;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+    }
+    .reviews-column::after {
+      bottom: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    }
+
+    /* Vertical Marquee Tracks with Veltora speeds */
+    .reviews-vertical-track {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 1.5rem !important;
       will-change: transform;
     }
-    .reviews-track-left {
-      animation: reviewsScrollLeft 32s linear infinite;
+
+    .track-normal {
+      animation: reviewsScrollUp 35s linear infinite;
     }
-    .reviews-track-right {
-      animation: reviewsScrollRight 32s linear infinite;
+    .track-fast {
+      animation: reviewsScrollUp 28s linear infinite;
     }
-    .reviews-marquee-row:hover .reviews-marquee-track {
-      animation-play-state: paused;
-    }
-    @keyframes reviewsScrollLeft {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    @keyframes reviewsScrollRight {
-      0% { transform: translateX(-50%); }
-      100% { transform: translateX(0); }
+    .track-slow {
+      animation: reviewsScrollUp 45s linear infinite;
     }
 
+    .reviews-column:hover .reviews-vertical-track {
+      animation-play-state: paused !important;
+    }
+
+    @keyframes reviewsScrollUp {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    /* Veltora review card style */
     .review-card {
-      width: 330px !important;
-      height: 230px !important;
-      padding: 1.8rem !important;
+      width: 100% !important;
+      padding: 1.6rem !important;
       display: flex !important;
       flex-direction: column !important;
       justify-content: space-between !important;
-      flex-shrink: 0 !important;
       background: rgba(20, 16, 9, 0.9) !important; /* Premium dark gold-charcoal */
       border: 1px solid rgba(143, 104, 32, 0.3) !important; /* Solid bronze-gold border */
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
       border-radius: 12px !important;
       transition: border-color 0.3s ease, transform 0.3s ease !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+      margin-bottom: 0 !important;
+      flex-shrink: 0 !important;
     }
     .review-card:hover {
       transform: translateY(-4px) !important;
       border-color: rgba(200, 144, 58, 0.6) !important;
     }
+    .review-stars {
+      color: #cfa240 !important; /* Veltora gold stars */
+      font-size: 0.85rem !important;
+      letter-spacing: 2px !important;
+      margin-bottom: 0.5rem !important;
+    }
     .review-card .review-text {
       font-size: 0.85rem !important;
-      line-height: 1.6 !important;
+      line-height: 1.55 !important;
       color: #e8e4dc !important; /* Highly visible light text */
       font-style: italic !important;
       margin: 0 !important;
-      flex-grow: 1 !important;
+      margin-bottom: 1rem !important;
     }
     .review-card .review-author {
       display: flex !important;
       align-items: center !important;
       gap: 0.8rem !important;
-      margin-top: 1rem !important;
     }
     .review-card .review-avatar {
       width: 36px !important;
@@ -2592,167 +2647,237 @@
     
     <!-- Single Row Horizontal Scrolling Reviews -->
     <div class="reviews-marquee-wrapper">
-      
-      <!-- Row 1: Scrolling Left -->
-      <div class="reviews-marquee-row">
-        <div class="reviews-marquee-track reviews-track-left">
-          <!-- Card 1 -->
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"Whiskey Peak Media delivered a custom platform that load in under 1 second. Our conversions increased by 40%."</p>
-            <div class="review-author">
-              <div class="review-avatar">NK</div>
-              <div class="review-meta">
-                <h4>Niklas K.</h4>
-                <p>CEO, Nexus SaaS</p>
+      <div class="reviews-columns-grid">
+        
+        <!-- Column 1: Normal Speed Marquee -->
+        <div class="reviews-column">
+          <div class="reviews-vertical-track track-normal">
+            <!-- Card 1 -->
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Whiskey Peak Media delivered a custom platform that load in under 1 second. Our conversions increased by 40%."</p>
+              <div class="review-author">
+                <div class="review-avatar">NK</div>
+                <div class="review-meta">
+                  <h4>Niklas K.</h4>
+                  <p>CEO, Nexus SaaS</p>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- Card 2 -->
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"Exceptional attention to detail. The custom dashboards are extremely fast and intuitive for our users."</p>
-            <div class="review-author">
-              <div class="review-avatar">SJ</div>
-              <div class="review-meta">
-                <h4>Sarah J.</h4>
-                <p>COO, Vertex Finance</p>
+            <!-- Card 2 -->
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Exceptional attention to detail. The custom dashboards are extremely fast and intuitive for our users."</p>
+              <div class="review-author">
+                <div class="review-avatar">SJ</div>
+                <div class="review-meta">
+                  <h4>Sarah J.</h4>
+                  <p>COO, Vertex Finance</p>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- Card 3 -->
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"The visual design is breathtaking. They captured our luxury brand essence perfectly. Compliments keep flowing."</p>
-            <div class="review-author">
-              <div class="review-avatar">AH</div>
-              <div class="review-meta">
-                <h4>Alina H.</h4>
-                <p>Director, Aethel Watches</p>
+            <!-- Card 3 -->
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"The visual design is breathtaking. They captured our luxury brand essence perfectly. Compliments keep flowing."</p>
+              <div class="review-author">
+                <div class="review-avatar">AH</div>
+                <div class="review-meta">
+                  <h4>Alina H.</h4>
+                  <p>Director, Aethel Watches</p>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <!-- Duplicate Cards for Seamless Infinite Scroll Loop -->
-          <!-- Card 1 Duplicate -->
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"Whiskey Peak Media delivered a custom platform that load in under 1 second. Our conversions increased by 40%."</p>
-            <div class="review-author">
-              <div class="review-avatar">NK</div>
-              <div class="review-meta">
-                <h4>Niklas K.</h4>
-                <p>CEO, Nexus SaaS</p>
+            <!-- Duplicate for Seamless Loop -->
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Whiskey Peak Media delivered a custom platform that load in under 1 second. Our conversions increased by 40%."</p>
+              <div class="review-author">
+                <div class="review-avatar">NK</div>
+                <div class="review-meta">
+                  <h4>Niklas K.</h4>
+                  <p>CEO, Nexus SaaS</p>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- Card 2 Duplicate -->
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"Exceptional attention to detail. The custom dashboards are extremely fast and intuitive for our users."</p>
-            <div class="review-author">
-              <div class="review-avatar">SJ</div>
-              <div class="review-meta">
-                <h4>Sarah J.</h4>
-                <p>COO, Vertex Finance</p>
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Exceptional attention to detail. The custom dashboards are extremely fast and intuitive for our users."</p>
+              <div class="review-author">
+                <div class="review-avatar">SJ</div>
+                <div class="review-meta">
+                  <h4>Sarah J.</h4>
+                  <p>COO, Vertex Finance</p>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- Card 3 Duplicate -->
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"The visual design is breathtaking. They captured our luxury brand essence perfectly. Compliments keep flowing."</p>
-            <div class="review-author">
-              <div class="review-avatar">AH</div>
-              <div class="review-meta">
-                <h4>Alina H.</h4>
-                <p>Director, Aethel Watches</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Row 2: Scrolling Right -->
-      <div class="reviews-marquee-row" style="margin-top: 1.5rem;">
-        <div class="reviews-marquee-track reviews-track-right">
-          <!-- Card 4 -->
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"Their scrollytelling implementation blew our minds. It's rare to find an agency that couples high design with clean code."</p>
-            <div class="review-author">
-              <div class="review-avatar">VS</div>
-              <div class="review-meta">
-                <h4>Vikram S.</h4>
-                <p>Director, Orion Creative</p>
-              </div>
-            </div>
-          </div>
-          <!-- Card 5 -->
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"Outstanding engineering and speed. The AI visual elements they built are incredibly premium and operate flawlessly."</p>
-            <div class="review-author">
-              <div class="review-avatar">JM</div>
-              <div class="review-meta">
-                <h4>Julian M.</h4>
-                <p>Founder, Aether AI</p>
-              </div>
-            </div>
-          </div>
-          <!-- Card 6 -->
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"They built our portfolio with smooth GSAP animations that work perfectly on all mobile devices. Highly recommended."</p>
-            <div class="review-author">
-              <div class="review-avatar">ER</div>
-              <div class="review-meta">
-                <h4>Elena R.</h4>
-                <p>Founder, Apex Agency</p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Duplicate Cards for Seamless Infinite Scroll Loop -->
-          <!-- Card 4 Duplicate -->
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"Their scrollytelling implementation blew our minds. It's rare to find an agency that couples high design with clean code."</p>
-            <div class="review-author">
-              <div class="review-avatar">VS</div>
-              <div class="review-meta">
-                <h4>Vikram S.</h4>
-                <p>Director, Orion Creative</p>
-              </div>
-            </div>
-          </div>
-          <!-- Card 5 Duplicate -->
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"Outstanding engineering and speed. The AI visual elements they built are incredibly premium and operate flawlessly."</p>
-            <div class="review-author">
-              <div class="review-avatar">JM</div>
-              <div class="review-meta">
-                <h4>Julian M.</h4>
-                <p>Founder, Aether AI</p>
-              </div>
-            </div>
-          </div>
-          <!-- Card 6 Duplicate -->
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"They built our portfolio with smooth GSAP animations that work perfectly on all mobile devices. Highly recommended."</p>
-            <div class="review-author">
-              <div class="review-avatar">ER</div>
-              <div class="review-meta">
-                <h4>Elena R.</h4>
-                <p>Founder, Apex Agency</p>
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"The visual design is breathtaking. They captured our luxury brand essence perfectly. Compliments keep flowing."</p>
+              <div class="review-author">
+                <div class="review-avatar">AH</div>
+                <div class="review-meta">
+                  <h4>Alina H.</h4>
+                  <p>Director, Aethel Watches</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- Column 2: Fast Speed Marquee -->
+        <div class="reviews-column">
+          <div class="reviews-vertical-track track-fast">
+            <!-- Card 4 -->
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Their scrollytelling implementation blew our minds. It's rare to find an agency that couples high design with clean code."</p>
+              <div class="review-author">
+                <div class="review-avatar">VS</div>
+                <div class="review-meta">
+                  <h4>Vikram S.</h4>
+                  <p>Director, Orion Creative</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Outstanding engineering and speed. The AI visual elements they built are incredibly premium and operate flawlessly."</p>
+              <div class="review-author">
+                <div class="review-avatar">JM</div>
+                <div class="review-meta">
+                  <h4>Julian M.</h4>
+                  <p>Founder, Aether AI</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 6 -->
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"They built our portfolio with smooth GSAP animations that work perfectly on all mobile devices. Highly recommended."</p>
+              <div class="review-author">
+                <div class="review-avatar">ER</div>
+                <div class="review-meta">
+                  <h4>Elena R.</h4>
+                  <p>Founder, Apex Agency</p>
+                </div>
+              </div>
+            </div>
+            <!-- Duplicate for Seamless Loop -->
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Their scrollytelling implementation blew our minds. It's rare to find an agency that couples high design with clean code."</p>
+              <div class="review-author">
+                <div class="review-avatar">VS</div>
+                <div class="review-meta">
+                  <h4>Vikram S.</h4>
+                  <p>Director, Orion Creative</p>
+                </div>
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Outstanding engineering and speed. The AI visual elements they built are incredibly premium and operate flawlessly."</p>
+              <div class="review-author">
+                <div class="review-avatar">JM</div>
+                <div class="review-meta">
+                  <h4>Julian M.</h4>
+                  <p>Founder, Aether AI</p>
+                </div>
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"They built our portfolio with smooth GSAP animations that work perfectly on all mobile devices. Highly recommended."</p>
+              <div class="review-author">
+                <div class="review-avatar">ER</div>
+                <div class="review-meta">
+                  <h4>Elena R.</h4>
+                  <p>Founder, Apex Agency</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3: Slow Speed Marquee -->
+        <div class="reviews-column">
+          <div class="reviews-vertical-track track-slow">
+            <!-- Card 1 -->
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Whiskey Peak Media delivered a custom platform that load in under 1 second. Our conversions increased by 40%."</p>
+              <div class="review-author">
+                <div class="review-avatar">NK</div>
+                <div class="review-meta">
+                  <h4>Niklas K.</h4>
+                  <p>CEO, Nexus SaaS</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"The visual design is breathtaking. They captured our luxury brand essence perfectly. Compliments keep flowing."</p>
+              <div class="review-author">
+                <div class="review-avatar">AH</div>
+                <div class="review-meta">
+                  <h4>Alina H.</h4>
+                  <p>Director, Aethel Watches</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Outstanding engineering and speed. The AI visual elements they built are incredibly premium and operate flawlessly."</p>
+              <div class="review-author">
+                <div class="review-avatar">JM</div>
+                <div class="review-meta">
+                  <h4>Julian M.</h4>
+                  <p>Founder, Aether AI</p>
+                </div>
+              </div>
+            </div>
+            <!-- Duplicate for Seamless Loop -->
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Whiskey Peak Media delivered a custom platform that load in under 1 second. Our conversions increased by 40%."</p>
+              <div class="review-author">
+                <div class="review-avatar">NK</div>
+                <div class="review-meta">
+                  <h4>Niklas K.</h4>
+                  <p>CEO, Nexus SaaS</p>
+                </div>
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"The visual design is breathtaking. They captured our luxury brand essence perfectly. Compliments keep flowing."</p>
+              <div class="review-author">
+                <div class="review-avatar">AH</div>
+                <div class="review-meta">
+                  <h4>Alina H.</h4>
+                  <p>Director, Aethel Watches</p>
+                </div>
+              </div>
+            </div>
+            <div class="review-card">
+              <div class="review-stars">★★★★★</div>
+              <p class="review-text">"Outstanding engineering and speed. The AI visual elements they built are incredibly premium and operate flawlessly."</p>
+              <div class="review-author">
+                <div class="review-avatar">JM</div>
+                <div class="review-meta">
+                  <h4>Julian M.</h4>
+                  <p>Founder, Aether AI</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-      
     </div>
   </section>
 
