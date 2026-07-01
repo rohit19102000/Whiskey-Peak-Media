@@ -3456,7 +3456,105 @@
         });
       });
 
-      // STORY SCROLL PINNING & GROWING IMAGE TIMELINE
+      // Mobile-only fade-out transition (keeps the fullscreen background takeover)
+      mm.add("(max-width: 768px)", () => {
+        const mobileFadeTween = gsap.to("#hero-portal", {
+          opacity: 0,
+          ease: "none"
+        });
+
+        ScrollTrigger.create({
+          trigger: "#story-section",
+          start: "top 95%",
+          end: "top 40%",
+          scrub: 1,
+          animation: mobileFadeTween,
+          invalidateOnRefresh: true,
+          onEnter: () => {
+            const portal = document.getElementById("hero-portal");
+            if (portal) {
+              document.body.appendChild(portal);
+              gsap.set(portal, {
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100vw",
+                height: "100vh",
+                zIndex: 9999,
+                transform: "none",
+                scale: 1,
+                opacity: 1,
+                visibility: "visible",
+                pointerEvents: "auto",
+                borderRadius: 0,
+                margin: 0
+              });
+              // Instantly hide text content and grid canvas for a solid black overlay
+              gsap.set(["#hero-text", "#grid-canvas"], { opacity: 0 });
+            }
+          },
+          onEnterBack: () => {
+            const portal = document.getElementById("hero-portal");
+            if (portal) {
+              document.body.appendChild(portal);
+              gsap.set(portal, {
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100vw",
+                height: "100vh",
+                zIndex: 9999,
+                transform: "none",
+                scale: 1,
+                opacity: 1,
+                visibility: "visible",
+                pointerEvents: "auto",
+                borderRadius: 0,
+                margin: 0
+              });
+              // Keep text content and grid canvas hidden
+              gsap.set(["#hero-text", "#grid-canvas"], { opacity: 0 });
+            }
+          },
+          onLeaveBack: () => {
+            const portal = document.getElementById("hero-portal");
+            const wrapper = document.querySelector(".hero-wrapper");
+            if (portal && wrapper) {
+              wrapper.appendChild(portal);
+              gsap.set(portal, {
+                position: "",
+                top: "",
+                left: "",
+                width: "",
+                height: "",
+                zIndex: "",
+                transform: "",
+                scale: "",
+                borderRadius: "",
+                opacity: "",
+                visibility: "",
+                pointerEvents: "",
+                margin: ""
+              });
+              // Restore visibility of text and canvas in hero section
+              gsap.set(["#hero-text", "#grid-canvas"], { opacity: "" });
+            }
+          },
+          onUpdate: (self) => {
+            const portal = document.getElementById("hero-portal");
+            if (portal) {
+              if (self.progress >= 0.99) {
+                portal.style.visibility = "hidden";
+                portal.style.pointerEvents = "none";
+              } else {
+                portal.style.visibility = "visible";
+                portal.style.pointerEvents = "auto";
+              }
+            }
+          }
+        });
+      });
+// STORY SCROLL PINNING & GROWING IMAGE TIMELINE
       const storyGrowTL = gsap.timeline({
         scrollTrigger: {
           trigger: "#story-section",
