@@ -3177,45 +3177,49 @@
           end: "+=200%",
           pin: true,
           scrub: 1,
-          invalidateOnRefresh: true,
-          onLeave: () => {
-            const portal = document.getElementById("hero-portal");
-            if (portal) {
-              gsap.set(portal, {
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100vw",
-                height: "100vh",
-                zIndex: 9999,
-                transform: "none",
-                scale: 1,
-                margin: 0,
-                borderRadius: 0
-              });
-            }
-          },
-          onEnterBack: () => {
-            const portal = document.getElementById("hero-portal");
-            const wrapper = document.querySelector(".hero-wrapper");
-            if (portal && wrapper) {
-              // Relocate portal back to hero wrapper at the exact pixel the pin reactivates
-              wrapper.appendChild(portal);
-              gsap.set(portal, {
-                position: "",
-                top: "",
-                left: "",
-                width: "",
-                height: "",
-                zIndex: "",
-                opacity: "",
-                visibility: "",
-                pointerEvents: "",
-                margin: ""
-              });
-              // Restore visibility of text and canvas in hero section
-              gsap.set(["#hero-text", "#grid-canvas"], { opacity: "" });
-            }
+          invalidateOnRefresh: true
+        }
+      });
+
+      // Standalone ScrollTrigger to handle fixed/relative DOM relocation at the pin boundary
+      ScrollTrigger.create({
+        trigger: "#hero-section",
+        start: "top+=200% top",
+        onLeave: () => {
+          const portal = document.getElementById("hero-portal");
+          if (portal) {
+            gsap.set(portal, {
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              zIndex: 9999,
+              transform: "none",
+              scale: 1,
+              margin: 0,
+              borderRadius: 0
+            });
+          }
+        },
+        onEnterBack: () => {
+          const portal = document.getElementById("hero-portal");
+          const wrapper = document.querySelector(".hero-wrapper");
+          if (portal && wrapper) {
+            wrapper.appendChild(portal);
+            gsap.set(portal, {
+              position: "",
+              top: "",
+              left: "",
+              width: "",
+              height: "",
+              zIndex: "",
+              opacity: "",
+              visibility: "",
+              pointerEvents: "",
+              margin: ""
+            });
+            gsap.set(["#hero-text", "#grid-canvas"], { opacity: "" });
           }
         }
       });
