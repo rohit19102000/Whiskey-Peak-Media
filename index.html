@@ -3183,9 +3183,9 @@
 
       // Standalone ScrollTrigger to handle fixed/relative DOM relocation at the pin boundary
       ScrollTrigger.create({
-        trigger: "#hero-section",
-        start: "top+=200% top",
-        onLeave: () => {
+        trigger: "#story-section",
+        start: "top bottom",
+        onEnter: () => {
           const portal = document.getElementById("hero-portal");
           if (portal) {
             gsap.set(portal, {
@@ -3202,7 +3202,7 @@
             });
           }
         },
-        onEnterBack: () => {
+        onLeaveBack: () => {
           const portal = document.getElementById("hero-portal");
           const wrapper = document.querySelector(".hero-wrapper");
           if (portal && wrapper) {
