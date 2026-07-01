@@ -1778,7 +1778,11 @@
       }
       .stages-container {
         position: absolute !important;
-        inset: 0 !important;
+        top: 14% !important; /* Positioned at the top of viewport */
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 90vw !important;
+        height: 160px !important;
         display: block !important;
         pointer-events: none !important;
         z-index: 10 !important;
@@ -1788,7 +1792,7 @@
         position: absolute !important;
         inset: 0 !important;
         display: flex !important;
-        align-items: center !important;
+        align-items: flex-start !important; /* Top aligned inside container */
         justify-content: center !important;
         opacity: 0;
         pointer-events: none !important;
@@ -1799,13 +1803,13 @@
       }
       .story-card {
         text-align: center !important;
-        padding: 2rem 1.5rem !important;
+        padding: 1.5rem 1.2rem !important;
         margin: 0 !important;
         background: rgba(13, 13, 18, 0.85) !important;
         backdrop-filter: blur(10px) !important;
         border: 1px solid rgba(200, 144, 58, 0.12) !important;
         border-radius: 12px !important;
-        width: 90% !important;
+        width: 100% !important;
         max-width: 400px !important;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
         transform: none !important;
@@ -1819,13 +1823,11 @@
       }
       .center-column {
         position: absolute !important;
-        top: 50% !important;
+        top: 62% !important; /* Positioned vertically below the text stage */
         left: 50% !important;
         transform: translate(-50%, -50%) !important;
-        width: 85vw !important;
-        height: 85vw !important;
-        max-width: 320px !important;
-        max-height: 320px !important;
+        width: auto !important;
+        height: auto !important;
         z-index: 2 !important;
         background: transparent !important;
         padding: 0 !important;
@@ -1834,13 +1836,14 @@
         justify-content: center !important;
       }
       .image-container {
-        width: 100% !important;
-        height: 100% !important;
-        transform: none !important;
+        /* Width and height are left undefined here so GSAP inline styles can drive the scroll-expansion! */
         border-radius: 16px !important;
+        box-shadow: 0 0 40px rgba(200, 144, 58, 0.08) !important;
       }
       .image-container img {
-        transform: none !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
       }
       .progress-dots {
         position: absolute !important;
@@ -3246,28 +3249,42 @@
 
       // Set initial state for container
       gsap.set("#story-img-container", {
-        width: () => window.innerWidth > 768 ? "700px" : "85vw",
-        height: () => window.innerWidth > 768 ? "700px" : "85vw",
+        width: () => window.innerWidth > 768 ? "700px" : "65vw",
+        height: () => window.innerWidth > 768 ? "700px" : "65vw",
         borderRadius: "24px"
       });
 
-      // Stage 1: grows to 80vw x 80vh
+      // Stage 1: grows to 80vw x 80vh (desktop) or 55vh (mobile)
       storyGrowTL.to("#story-img-container", {
         width: "80vw",
-        height: "80vh",
+        height: () => window.innerWidth > 768 ? "80vh" : "55vh",
         borderRadius: "16px",
         ease: "power1.inOut",
         duration: 0.25
       }, 0.25);
+      if (window.innerWidth <= 768) {
+        storyGrowTL.to(".center-column", {
+          top: "58%",
+          ease: "power1.inOut",
+          duration: 0.25
+        }, 0.25);
+      }
 
-      // Stage 2: grows to 92vw x 92vh
+      // Stage 2: grows to 92vw x 92vh (desktop) or 75vh (mobile)
       storyGrowTL.to("#story-img-container", {
         width: "92vw",
-        height: "92vh",
+        height: () => window.innerWidth > 768 ? "92vh" : "75vh",
         borderRadius: "8px",
         ease: "power1.inOut",
         duration: 0.25
       }, 0.5);
+      if (window.innerWidth <= 768) {
+        storyGrowTL.to(".center-column", {
+          top: "54%",
+          ease: "power1.inOut",
+          duration: 0.25
+        }, 0.5);
+      }
 
       // Stage 3: grows to 100vw x 100vh (full viewport)
       storyGrowTL.to("#story-img-container", {
@@ -3277,6 +3294,13 @@
         ease: "power1.inOut",
         duration: 0.25
       }, 0.75);
+      if (window.innerWidth <= 768) {
+        storyGrowTL.to(".center-column", {
+          top: "50%",
+          ease: "power1.inOut",
+          duration: 0.25
+        }, 0.75);
+      }
 
       // Fade out text columns and progress dots as the image expands to full screen (progress 0.8 -> 1.0)
       gsap.to(".stages-container, #progress-dots", {
