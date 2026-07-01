@@ -90,23 +90,30 @@
     }
 
     /* VELTORA TESTIMONIALS SECTION STYLE OVERRIDES */
+    #reviews-section {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
     .reviews-marquee-grid {
       display: none !important; /* Hide old vertical marquee layout */
     }
 
-    /* Floating glass-panel marquee container matching Veltora */
+    /* Full-width edge-to-edge glass-panel marquee container matching Veltora style */
     .reviews-marquee-wrapper {
-      width: 100%;
-      max-width: 1100px;
-      margin: 40px auto 0 auto;
+      width: 100% !important;
+      max-width: none !important;
+      margin: 40px 0 0 0 !important;
       overflow: hidden;
       position: relative;
-      padding: 40px 24px !important;
+      padding: 40px 0 !important;
       background: rgba(0, 0, 0, 0.8) !important; /* Transparent black background matching Veltora layout */
       backdrop-filter: blur(20px) !important;
       -webkit-backdrop-filter: blur(20px) !important;
-      border: 1px solid rgba(143, 104, 32, 0.3) !important; /* Matching gold/bronze border */
-      border-radius: 20px !important;
+      border-top: 1px solid rgba(143, 104, 32, 0.3) !important; /* Matching gold/bronze top border */
+      border-bottom: 1px solid rgba(143, 104, 32, 0.3) !important; /* Matching gold/bronze bottom border */
+      border-left: none !important;
+      border-right: none !important;
+      border-radius: 0 !important;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65) !important; /* Deep luxury shadow */
       animation: reviewsFloatTilt 6s ease-in-out infinite alternate;
     }
