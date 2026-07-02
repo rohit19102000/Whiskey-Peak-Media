@@ -471,9 +471,19 @@
       border-bottom: none; /* Sit flush with bottom */
       box-shadow: 0 -10px 60px rgba(200, 144, 58, 0.08), inset 0 10px 40px rgba(200, 144, 58, 0.04);
       overflow: hidden;
-      background: #ffffff; /* White background portal */
+      background: #ffffff url('hero_bg.png') no-repeat center center;
+      background-size: cover;
       transform-origin: bottom center; /* Scale upwards and outwards */
       will-change: transform, border-radius, border-color;
+    }
+
+    #hero-portal::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.35); /* Subtle white tint to ensure absolute legibility of all text */
+      z-index: 1;
+      pointer-events: none;
     }
 
     #grid-canvas {
@@ -575,10 +585,10 @@
 
     .about-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1.25fr 1fr;
       max-width: 1100px;
       margin: 0 auto;
-      gap: 4rem;
+      gap: 5rem;
     }
 
     .about-col {
@@ -607,6 +617,28 @@
       line-height: 1.8;
       color: var(--text-muted);
       margin: 0;
+      margin-top: 1.8rem; /* Space under title */
+      will-change: transform, opacity;
+      opacity: 0;
+    }
+
+    /* Option 1 Typing cursor effects */
+    .about-title .char {
+      opacity: 0;
+      display: inline-block;
+      will-change: opacity;
+    }
+
+    .typed-cursor {
+      display: inline-block;
+      color: var(--accent);
+      animation: blink 0.7s infinite;
+      margin-left: 2px;
+      font-weight: 300;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
 
     .stats-stack {
@@ -619,6 +651,13 @@
     .stat-block {
       display: flex;
       flex-direction: column;
+      padding: 1.5rem;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      background: rgba(250, 247, 242, 0.45);
+      will-change: border-color, transform, opacity;
+      opacity: 0;
+      transform: translateY(20px);
     }
 
     .stat-number {
@@ -2343,25 +2382,25 @@
   <section id="about-section">
     <hr class="about-hr">
     <div class="about-grid">
-      <div class="about-col">
+      <!-- Left Column (Heading + Paragraph) -->
+      <div class="about-col main-info-col">
         <span class="about-eyebrow">Who We Are</span>
         <h2 class="about-title">Built for businesses ready to grow.</h2>
-      </div>
-      <div class="about-col">
         <p class="about-body">Whiskey Peak Media is a full-service web studio. We partner with ambitious businesses to design, build, and launch websites that generate real results — fast-loading, beautifully crafted, and built to convert.</p>
       </div>
-      <div class="about-col">
+      <!-- Right Column (Stats + Button) -->
+      <div class="about-col stats-col">
         <div class="stats-stack">
           <div class="stat-block">
-            <span class="stat-number">50+</span>
+            <span class="stat-number" data-target="50" data-suffix="+">0+</span>
             <span class="stat-label">Sites Launched</span>
           </div>
           <div class="stat-block">
-            <span class="stat-number">4.9★</span>
+            <span class="stat-number" data-target="4.9" data-suffix="★" data-decimals="1">0.0★</span>
             <span class="stat-label">Client Satisfaction</span>
           </div>
           <div class="stat-block">
-            <span class="stat-number">100%</span>
+            <span class="stat-number" data-target="100" data-suffix="%">0%</span>
             <span class="stat-label">On-Time Delivery</span>
           </div>
         </div>
@@ -3736,6 +3775,144 @@
           }
         }
       );
+
+      // ABOUT SECTION STATS COUNTER AND BORDERS ANIMATION (CYCLIC FOR EVERY ENTER/LEAVE)
+      
+      // Parse heading into character spans for typing effect
+      const aboutTitle = document.querySelector("#about-section .about-title");
+      if (aboutTitle) {
+        const text = aboutTitle.textContent.trim();
+        aboutTitle.innerHTML = text.split('').map(char => {
+          if (char === ' ') return '<span class="char" style="opacity: 0;">&nbsp;</span>';
+          return `<span class="char" style="opacity: 0;">${char}</span>`;
+        }).join('') + '<span class="typed-cursor">|</span>';
+      }
+
+      let statsTweens = [];
+
+      function playStatsAnim() {
+        // Clean up previous animations
+        statsTweens.forEach(t => t.kill());
+        statsTweens = [];
+
+        // 1. Typing effect for heading characters
+        statsTweens.push(
+          gsap.to("#about-section .about-title .char", {
+            opacity: 1,
+            duration: 0.03,
+            stagger: 0.02,
+            ease: "none"
+          })
+        );
+
+        // 2. Smooth reveal of the body paragraph text
+        statsTweens.push(
+          gsap.fromTo("#about-section .about-body",
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.4 }
+          )
+        );
+
+        // 3. Staggered reveal of the stat card borders
+        statsTweens.push(
+          gsap.to("#about-section .stat-block", {
+            opacity: 1,
+            y: 0,
+            borderColor: "rgba(200, 144, 58, 0.18)",
+            duration: 0.7,
+            stagger: 0.12,
+            ease: "power2.out",
+            delay: 0.4 // Delay to coordinate with typing completion
+          })
+        );
+
+        // 4. Staggered count-up of values
+        const numbers = document.querySelectorAll("#about-section .stat-number");
+        numbers.forEach((num, idx) => {
+          const targetVal = parseFloat(num.getAttribute("data-target"));
+          const suffix = num.getAttribute("data-suffix") || "";
+          const decimals = parseInt(num.getAttribute("data-decimals") || "0");
+          
+          const obj = { val: 0 };
+          statsTweens.push(
+            gsap.to(obj, {
+              val: targetVal,
+              duration: 1.2,
+              ease: "power1.out",
+              delay: 0.5 + (idx * 0.12), // Ticks start as cards appear
+              onUpdate: () => {
+                num.textContent = obj.val.toFixed(decimals) + suffix;
+              }
+            })
+          );
+        });
+
+        // 5. Fade and lift the CTA Button
+        statsTweens.push(
+          gsap.to("#about-section #about-cta", {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.6,
+            ease: "power2.out",
+            delay: 0.75
+          })
+        );
+      }
+
+      function resetStatsAnim() {
+        // Clean up active animations
+        statsTweens.forEach(t => t.kill());
+        statsTweens = [];
+
+        // Hide heading characters
+        gsap.set("#about-section .about-title .char", { opacity: 0 });
+
+        // Hide description paragraph
+        gsap.set("#about-section .about-body", { opacity: 0, y: 15 });
+
+        // Slide down and hide cards
+        gsap.to("#about-section .stat-block", {
+          opacity: 0,
+          y: 20,
+          borderColor: "rgba(200, 144, 58, 0.0)",
+          duration: 0.4,
+          ease: "power2.in"
+        });
+
+        // Hide CTA Button
+        gsap.set("#about-section #about-cta", {
+          opacity: 0,
+          y: 20,
+          scale: 0.95
+        });
+
+        // Set numbers back to zero
+        const numbers = document.querySelectorAll("#about-section .stat-number");
+        numbers.forEach((num) => {
+          const suffix = num.getAttribute("data-suffix") || "";
+          const decimals = parseInt(num.getAttribute("data-decimals") || "0");
+          const zero = 0;
+          num.textContent = zero.toFixed(decimals) + suffix;
+        });
+      }
+
+      // Initialize CTA initial button state
+      gsap.set("#about-section #about-cta", {
+        opacity: 0,
+        y: 20,
+        scale: 0.95
+      });
+
+      ScrollTrigger.create({
+        trigger: "#about-section",
+        start: "top 80%",
+        end: "bottom 20%",
+        onEnter: () => playStatsAnim(),
+        onEnterBack: () => playStatsAnim(),
+        onLeave: () => resetStatsAnim(),
+        onLeaveBack: () => resetStatsAnim()
+      });
 
       // Force ScrollTrigger to calculate correct offsets for all pins and markers
       ScrollTrigger.refresh();
