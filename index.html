@@ -2181,6 +2181,43 @@
       height: 100%;
       background: rgba(200, 144, 58, 0.1);
     }
+
+    /* Services Section Fullscreen Changing Backgrounds */
+    .services-bg-container {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+      background-color: #ffffff;
+    }
+
+    .service-bg-visual {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      will-change: opacity;
+    }
+
+    /* Subtle high-key overlay to guarantee 100% text readability */
+    .service-bg-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.72);
+      z-index: 2;
+    }
+
+    .services-layout-wrapper {
+      z-index: 2 !important;
+    }
 </style>
 </head>
 <body>
@@ -2335,6 +2372,13 @@
 
   <!-- SECTION 4: SERVICES -->
   <section id="services-section">
+    <!-- Fullscreen changing background visuals for services -->
+    <div class="services-bg-container">
+      <div class="service-bg-visual" id="services-visual-1" style="background-image: url('services_strategy.png');"></div>
+      <div class="service-bg-visual" id="services-visual-2" style="background-image: url('services_design.png');"></div>
+      <div class="service-bg-visual" id="services-visual-3" style="background-image: url('services_dev.png');"></div>
+      <div class="service-bg-visual" id="services-visual-4" style="background-image: url('services_seo.png');"></div>
+    </div>
     <div class="services-layout-wrapper">
       <div class="services-header">
         <span class="services-eyebrow">Our Services</span>
@@ -3569,6 +3613,9 @@
         }
       });
 
+      // Set initial background visuals opacity to 0
+      gsap.set(".service-bg-visual", { opacity: 0 });
+
       const servicesTL = gsap.timeline({
         scrollTrigger: {
           trigger: "#services-section",
@@ -3597,6 +3644,20 @@
           { x: exitX, y: 0, opacity: 0, ease: "power2.in", duration: 0.3 },
           startTime + 0.7
         );
+
+        // Fade in/out the corresponding fullscreen background visual
+        const visual = document.getElementById(`services-visual-${idx + 1}`);
+        if (visual) {
+          servicesTL.fromTo(visual,
+            { opacity: 0 },
+            { opacity: 1.0, ease: "power1.inOut", duration: 0.3 },
+            startTime
+          );
+          servicesTL.to(visual,
+            { opacity: 0, ease: "power1.inOut", duration: 0.3 },
+            startTime + 0.7
+          );
+        }
       });
 
       // PRICING SECTION STACK ANIMATION
