@@ -45,7 +45,7 @@
     #hero-portal p,
     #hero-portal span,
     #hero-portal a {
-      color: #e8e4dc !important;
+      color: #121214 !important; /* Dark text for light background */
     }
     #hero-portal .hero-title-small,
     #hero-portal .hero-eyebrow,
@@ -53,7 +53,7 @@
       color: var(--accent) !important;
     }
     #hero-portal .hero-subheading {
-      color: #9c9990 !important;
+      color: #626168 !important; /* Dark gray for light background */
     }
 
     .story-card {
@@ -408,7 +408,7 @@
     }
 
     .nav-link {
-      color: #e8e4dc; /* Light links initially on the dark hero portal */
+      color: #121214; /* Dark links initially for the light theme hero */
       font-size: 0.85rem;
       text-decoration: none;
       letter-spacing: 0.05em;
@@ -471,7 +471,7 @@
       border-bottom: none; /* Sit flush with bottom */
       box-shadow: 0 -10px 60px rgba(200, 144, 58, 0.08), inset 0 10px 40px rgba(200, 144, 58, 0.04);
       overflow: hidden;
-      background: #0a0a0f;
+      background: #ffffff; /* White background portal */
       transform-origin: bottom center; /* Scale upwards and outwards */
       will-change: transform, border-radius, border-color;
     }
@@ -485,6 +485,7 @@
       transform: translateX(-50%);
       transform-origin: bottom center;
       z-index: 1;
+      display: none !important; /* Hide warp grid canvas */
     }
 
     .hero-text-wrapper {
@@ -1738,6 +1739,7 @@
         min-height: 550px;
         border-radius: 16px 16px 0 0;
         border-bottom: none;
+        background: #ffffff !important; /* White background portal on mobile */
       }
       .hero-text-wrapper {
         padding: 1.2rem !important;
@@ -2071,7 +2073,115 @@
         will-change: auto !important;
       }
     }
-  </style>
+  
+    /* Concept 1 Modified: Two kinetic rows with bottom details stack */
+    .kinetic-text-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      overflow: hidden;
+      padding-bottom: 22vh; /* Make room for bottom details stack in the 80vh portal */
+      box-sizing: border-box;
+    }
+
+    .kinetic-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      padding: 1.5vh 0;
+      box-sizing: border-box;
+      will-change: transform, opacity;
+    }
+
+    .row-left {
+      justify-content: flex-start;
+      padding-left: 8vw;
+    }
+
+    .row-right {
+      justify-content: flex-end;
+      padding-right: 8vw;
+    }
+
+    .kinetic-text {
+      font-family: var(--font-sans);
+      font-size: clamp(2.5rem, 7vw, 6.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      line-height: 0.9;
+      color: #121214;
+    }
+
+    #hero-portal .kinetic-text.font-accent {
+      color: var(--accent) !important; /* Golden color */
+      font-weight: 300; /* Luxury contrasting weight */
+      font-style: italic;
+      margin-right: 2vw;
+    }
+
+    .hero-bottom-details {
+      position: absolute;
+      bottom: 6vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      z-index: 4;
+      gap: 0.8rem;
+      will-change: transform, opacity;
+      box-sizing: border-box;
+      padding: 0 2rem;
+    }
+
+    .hero-bottom-details .hero-eyebrow {
+      margin: 0 !important;
+      font-weight: 500;
+    }
+
+    .hero-bottom-details .hero-subheading {
+      margin: 0 !important;
+      max-width: 480px;
+    }
+
+    .hero-cta-wrapper {
+      margin-top: 0.5rem;
+    }
+
+    /* Golden grid lines that appear on scroll */
+    .kinetic-grid-lines {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0;
+      will-change: opacity;
+    }
+
+    .grid-line-h {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: rgba(200, 144, 58, 0.1);
+    }
+
+    .grid-line-v {
+      position: absolute;
+      top: 0;
+      width: 1px;
+      height: 100%;
+      background: rgba(200, 144, 58, 0.1);
+    }
+</style>
 </head>
 <body>
 
@@ -2099,12 +2209,31 @@
         <!-- Warp Grid Canvas -->
         <canvas id="grid-canvas"></canvas>
         
-        <!-- Inside Portal: Hero Text Content -->
-        <div class="hero-text-wrapper" id="hero-text">
+        <!-- Grid lines for the kinetic grid concept -->
+        <div class="kinetic-grid-lines">
+          <div class="grid-line-h" style="top: 33.3%;"></div>
+          <div class="grid-line-h" style="top: 66.6%;"></div>
+          <div class="grid-line-v" style="left: 33.3%;"></div>
+          <div class="grid-line-v" style="left: 66.6%;"></div>
+        </div>
+
+        <!-- Central Kinetic Rows: Whiskey Peak on left, Media in gold on right -->
+        <div class="kinetic-text-container">
+          <div class="kinetic-row row-left">
+            <span class="kinetic-text">Whiskey Peak</span>
+          </div>
+          <div class="kinetic-row row-right">
+            <span class="kinetic-text font-accent">Media</span>
+          </div>
+        </div>
+
+        <!-- Bottom details: eyebrow, subheading, and button -->
+        <div class="hero-bottom-details">
           <span class="hero-eyebrow">Digital Craftsmanship</span>
-          <h1 class="hero-title">Whiskey Peak <span class="hero-title-small">Media</span></h1>
           <p class="hero-subheading">strategy, design, and code for businesses that mean it.</p>
-          <a href="#story-section" class="cta-btn" id="hero-cta">See Our Work</a>
+          <div class="hero-cta-wrapper">
+            <a href="#story-section" class="cta-btn" id="hero-cta">See Our Work</a>
+          </div>
         </div>
       </div>
     </div>
@@ -3212,360 +3341,48 @@
       // Start loop
       mainLoop();
 
-      // HERO PORTAL EXPANSION
+      // HERO PORTAL KINETIC SPLIT SCROLL TIMELINE
       const heroTL = gsap.timeline({
         scrollTrigger: {
           trigger: "#hero-section",
           start: "top top",
-          end: "+=100%",
+          end: "+=120%",
           pin: true,
           scrub: 1,
           invalidateOnRefresh: true
         }
       });
 
-      // Standalone ScrollTrigger to handle fixed/relative DOM relocation at the pin boundary
-      ScrollTrigger.create({
-        trigger: "#story-section",
-        start: "top bottom",
-        onEnter: () => {
-          const portal = document.getElementById("hero-portal");
-          if (portal) {
-            document.body.appendChild(portal);
-            gsap.set(portal, {
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100vw",
-              height: "100vh",
-              zIndex: 9999,
-              transform: "none",
-              scale: 1,
-              margin: 0,
-              borderRadius: 0
-            });
-          }
-        },
-        onLeaveBack: () => {
-          const portal = document.getElementById("hero-portal");
-          const wrapper = document.querySelector(".hero-wrapper");
-          if (portal && wrapper) {
-            wrapper.appendChild(portal);
-            gsap.set(portal, {
-              position: "",
-              top: "",
-              left: "",
-              width: "",
-              height: "",
-              zIndex: "",
-              opacity: "",
-              visibility: "",
-              pointerEvents: "",
-              margin: ""
-            });
-            gsap.set(["#hero-text", "#grid-canvas"], { opacity: "" });
-          }
-        }
-      });
-
-      // Portal expands to cover full screen
-      heroTL.to("#hero-portal", {
-        scale: () => {
-          const portal = document.getElementById('hero-portal');
-          const scaleX = window.innerWidth / portal.offsetWidth;
-          const scaleY = window.innerHeight / portal.offsetHeight;
-          return Math.max(scaleX, scaleY);
-        },
-        borderRadius: 0,
-        borderColor: "transparent",
-        ease: "none",
-        duration: 1
-      }, 0);
-
-      // Counter-scale the inner canvas to keep it unscaled and crisp on the screen
-      gsap.set("#grid-canvas", { xPercent: -50 });
-      heroTL.to("#grid-canvas", {
-        scale: () => {
-          const portal = document.getElementById('hero-portal');
-          const scaleX = window.innerWidth / portal.offsetWidth;
-          const scaleY = window.innerHeight / portal.offsetHeight;
-          return 1 / Math.max(scaleX, scaleY);
-        },
-        ease: "none",
-        duration: 1
-      }, 0);
-
-      // Background canvas disabled for post-hero sections
-
-      // ABOUT SECTION ANIMATIONS
-      gsap.from(".about-hr", {
-        scaleX: 0,
-        transformOrigin: "left center",
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: "#about-section",
-          start: "top 85%",
-          end: "top 50%",
-          scrub: true
-        }
-      });
-
-      gsap.from(".about-col", {
+      // Fade out bottom info & CTA details quickly
+      heroTL.to(".hero-bottom-details", {
         opacity: 0,
-        y: 40,
-        stagger: 0.15,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: "#about-section",
-          start: "top 80%",
-          toggleActions: "play none none reverse"
-        }
-      });
+        y: -30,
+        duration: 0.35
+      }, 0);
 
-      // BRIDGE SCROLL-DRIVEN ANIMATION BETWEEN HERO AND STORY SECTIONS
-      // Only run the bridge animation on desktop screens (> 768px)
-      let mm = gsap.matchMedia();
-      mm.add("(min-width: 769px)", () => {
-        let targetRect = { width: 700, height: 700, top: 0, left: 0 };
-        function updateTargetRect() {
-          const imgContainer = document.getElementById('story-img-container');
-          if (imgContainer) {
-            const containerRect = imgContainer.getBoundingClientRect();
-            targetRect = {
-              width: containerRect.width,
-              height: containerRect.height,
-              left: containerRect.left,
-              top: window.innerHeight - containerRect.height // Positioned at the bottom center of the viewport
-            };
-          }
-        }
+      // Slide out kinetic rows horizontally in opposite directions
+      heroTL.to(".kinetic-row.row-left", {
+        x: "-30vw",
+        opacity: 0,
+        duration: 0.8,
+        ease: "power1.inOut"
+      }, 0.1);
 
-        // Initial rect math calculation
-        updateTargetRect();
+      heroTL.to(".kinetic-row.row-right", {
+        x: "30vw",
+        opacity: 0,
+        duration: 0.8,
+        ease: "power1.inOut"
+      }, 0.1);
 
-        const getTargetValue = (prop) => {
-          return targetRect[prop] + (prop === 'borderRadius' ? '' : 'px');
-        };
+      // Fade in the golden coordinate grid lines
+      heroTL.to(".kinetic-grid-lines", {
+        opacity: 1,
+        duration: 0.6,
+        ease: "power1.inOut"
+      }, 0.2);
 
-        // Recalculate on refresh
-        ScrollTrigger.addEventListener("refresh", () => {
-          updateTargetRect();
-        });
-
-        // Step 2: Shrink and move simultaneously (quick triggered timeline)
-        const shrinkTL = gsap.timeline({
-          defaults: { ease: "power2.inOut" }
-        });
-
-        // Portal shrinks, moves to bottom center, and becomes slightly transparent over 0.6s
-        shrinkTL.to("#hero-portal", {
-          width: () => getTargetValue('width'),
-          height: () => getTargetValue('height'),
-          top: () => getTargetValue('top'),
-          left: () => getTargetValue('left'),
-          borderRadius: "24px",
-          opacity: 0.85, // Make the black div a bit more transparent
-          duration: 0.6
-        }, 0);
-
-        // Keep heading/text briefly, then fade out smoothly before reaching next section
-        shrinkTL.to("#hero-text", {
-          opacity: 0,
-          duration: 0.35,
-          ease: "power1.out"
-        }, 0.15);
-
-        // Fade out grid canvas
-        shrinkTL.to("#grid-canvas", {
-          opacity: 0,
-          duration: 0.35,
-          ease: "power1.out"
-        }, 0.15);
-
-        ScrollTrigger.create({
-          trigger: "#story-section",
-          start: "top 90%",
-          end: "top 40%",
-          toggleActions: "play none reverse none", // Triggered at the start of scroll, reverse play triggered on enter-back (top 40%)
-          animation: shrinkTL,
-          invalidateOnRefresh: true,
-          onEnter: () => {
-            const portal = document.getElementById("hero-portal");
-            if (portal) {
-              gsap.set(portal, {
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100vw",
-                height: "100vh",
-                zIndex: 9999,
-                transform: "none",
-                scale: 1,
-                opacity: 1,
-                visibility: "visible",
-                pointerEvents: "auto",
-                borderRadius: 0,
-                margin: 0
-              });
-              // Ensure text content and canvas start fully visible for the fade-out timeline
-              gsap.set(["#hero-text", "#grid-canvas"], { opacity: 1 });
-            }
-          },
-          onLeave: () => {
-            const portal = document.getElementById("hero-portal");
-            if (portal) {
-              gsap.set(portal, {
-                zIndex: 9999
-              });
-            }
-          },
-          onEnterBack: () => {
-            const portal = document.getElementById("hero-portal");
-            if (portal) {
-              gsap.set(portal, {
-                position: "fixed",
-                width: targetRect.width + "px",
-                height: targetRect.height + "px",
-                top: targetRect.top + "px",
-                left: targetRect.left + "px",
-                zIndex: 9999,
-                transform: "none",
-                scale: 1,
-                opacity: 0.85,
-                borderRadius: "24px",
-                visibility: "visible",
-                pointerEvents: "auto",
-                margin: 0
-              });
-              // Keep text content and canvas hidden when entering back from the bottom
-              gsap.set(["#hero-text", "#grid-canvas"], { opacity: 0 });
-            }
-          },
-          onLeaveBack: () => {
-            const portal = document.getElementById("hero-portal");
-            if (portal) {
-              gsap.set(portal, {
-                opacity: 1,
-                visibility: "visible",
-                pointerEvents: "auto"
-              });
-            }
-          }
-        });
-
-        // Step 3: Disappear on scroll to reveal the image
-        const fadeTween = gsap.to("#hero-portal", {
-          top: () => targetRect.top - window.innerHeight * 0.3,
-          opacity: 0,
-          ease: "none"
-        });
-
-        ScrollTrigger.create({
-          trigger: "#story-section",
-          start: "top 40%",
-          end: "top 10%",
-          scrub: 1,
-          animation: fadeTween,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            const portal = document.getElementById("hero-portal");
-            if (portal) {
-              if (self.progress >= 0.99) {
-                portal.style.visibility = "hidden";
-                portal.style.pointerEvents = "none";
-              } else {
-                portal.style.visibility = "visible";
-                portal.style.pointerEvents = "auto";
-              }
-            }
-          }
-        });
-      });
-
-      // Mobile-only fade-out transition (keeps the fullscreen background takeover)
-      mm.add("(max-width: 768px)", () => {
-        const mobileFadeTween = gsap.to("#hero-portal", {
-          opacity: 0,
-          ease: "none"
-        });
-
-        ScrollTrigger.create({
-          trigger: "#story-section",
-          start: "top 95%",
-          end: "top 40%",
-          scrub: 1,
-          animation: mobileFadeTween,
-          invalidateOnRefresh: true,
-          onEnter: () => {
-            const portal = document.getElementById("hero-portal");
-            if (portal) {
-              gsap.set(portal, {
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100vw",
-                height: "100vh",
-                zIndex: 9999,
-                transform: "none",
-                scale: 1,
-                opacity: 1,
-                visibility: "visible",
-                pointerEvents: "auto",
-                borderRadius: 0,
-                margin: 0
-              });
-              // Instantly hide text content and grid canvas for a solid black overlay
-              gsap.set(["#hero-text", "#grid-canvas"], { opacity: 0 });
-            }
-          },
-          onEnterBack: () => {
-            const portal = document.getElementById("hero-portal");
-            if (portal) {
-              gsap.set(portal, {
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100vw",
-                height: "100vh",
-                zIndex: 9999,
-                transform: "none",
-                scale: 1,
-                opacity: 1,
-                visibility: "visible",
-                pointerEvents: "auto",
-                borderRadius: 0,
-                margin: 0
-              });
-              // Keep text content and grid canvas hidden
-              gsap.set(["#hero-text", "#grid-canvas"], { opacity: 0 });
-            }
-          },
-          onLeaveBack: () => {
-            const portal = document.getElementById("hero-portal");
-            if (portal) {
-              gsap.set(portal, {
-                opacity: 1,
-                visibility: "visible",
-                pointerEvents: "auto"
-              });
-            }
-          },
-          onUpdate: (self) => {
-            const portal = document.getElementById("hero-portal");
-            if (portal) {
-              if (self.progress >= 0.99) {
-                portal.style.visibility = "hidden";
-                portal.style.pointerEvents = "none";
-              } else {
-                portal.style.visibility = "visible";
-                portal.style.pointerEvents = "auto";
-              }
-            }
-          }
-        });
-      });
-// STORY SCROLL PINNING & GROWING IMAGE TIMELINE
+      // STORY SCROLL PINNING & GROWING IMAGE TIMELINE
       const storyGrowTL = gsap.timeline({
         scrollTrigger: {
           trigger: "#story-section",
