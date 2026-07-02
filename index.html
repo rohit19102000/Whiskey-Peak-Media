@@ -3474,8 +3474,8 @@
         scrollTrigger: {
           trigger: "#story-section",
           start: "top top",
-          end: "+=400%",
-          scrub: 1.5,
+          end: () => window.innerWidth > 768 ? "+=400%" : "+=185%",
+          scrub: window.innerWidth > 768 ? 1.5 : 0.5, // Snap closer to scroll on mobile to remove delay
           invalidateOnRefresh: true
         }
       });
@@ -3541,8 +3541,8 @@
         ease: "none",
         scrollTrigger: {
           trigger: "#story-section",
-          start: "top+=320% top",
-          end: "top+=380% top",
+          start: () => window.innerWidth > 768 ? "top+=320% top" : "top+=140% top",
+          end: () => window.innerWidth > 768 ? "top+=380% top" : "top+=170% top",
           scrub: true
         }
       });
@@ -3552,9 +3552,9 @@
       ScrollTrigger.create({
         trigger: "#story-section",
         start: "top top",
-        end: "+=400%",
+        end: () => window.innerWidth > 768 ? "+=400%" : "+=185%",
         pin: true,
-        scrub: 1.5,
+        scrub: window.innerWidth > 768 ? 1.5 : 0.5, // Faster update response on mobile
         onUpdate: (self) => {
           const progress = self.progress;
           let index = Math.floor(progress * 4);
