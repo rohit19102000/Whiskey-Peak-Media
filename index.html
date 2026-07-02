@@ -545,7 +545,7 @@
 
     /* CTA BUTTONS */
     .cta-btn {
-      padding: 0.7rem 1.8rem;
+      padding: 0.95rem 2.2rem;
       border: 1px solid var(--accent);
       color: var(--accent);
       background: transparent;
@@ -1754,6 +1754,25 @@
     .reviews-marquee-fast:hover,
     .reviews-marquee-slow:hover {
       animation-play-state: paused;
+    }
+
+    /* Focus indicators for keyboard accessibility (Priority 1) */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible,
+    [role="button"]:focus-visible {
+      outline: 2px solid rgba(200, 144, 58, 0.85) !important;
+      outline-offset: 4px !important;
+    }
+
+    /* Modern user-invalid validation feedback (Priority 8) */
+    .form-input:user-invalid {
+      border-bottom-color: #dc2626 !important;
+    }
+    .form-input:user-invalid ~ .form-label {
+      color: #dc2626 !important;
     }
 
     /* RESPONSIVE DESIGN (MOBILE OVERRIDES) */
@@ -3115,41 +3134,41 @@
       <div class="faq-list">
         <!-- FAQ 1 -->
         <div class="faq-item reveal-item">
-          <div class="faq-question">
+          <div class="faq-question" role="button" tabindex="0" id="faq-q-1" aria-expanded="false" aria-controls="faq-a-1">
             <span>What is your typical build timeline?</span>
             <span class="faq-toggle">+</span>
           </div>
-          <div class="faq-answer">
+          <div class="faq-answer" id="faq-a-1" role="region" aria-labelledby="faq-q-1">
             <p>Our custom projects typically take between 4 to 8 weeks. This timeline includes our deep strategy and discovery wireframing phase, high-fidelity UI design cycles, creative GSAP animation coding, optimization, and final deployment.</p>
           </div>
         </div>
         <!-- FAQ 2 -->
         <div class="faq-item reveal-item">
-          <div class="faq-question">
+          <div class="faq-question" role="button" tabindex="0" id="faq-q-2" aria-expanded="false" aria-controls="faq-a-2">
             <span>Do you build websites on WordPress or Webflow?</span>
             <span class="faq-toggle">+</span>
           </div>
-          <div class="faq-answer">
+          <div class="faq-answer" id="faq-a-2" role="region" aria-labelledby="faq-q-2">
             <p>We believe in high performance and complete creative freedom. We primarily build bespoke codebases (HTML, Javascript, React, Next.js) hosted on fast CDN servers, or custom Webflow builds for clients who require self-managed systems.</p>
           </div>
         </div>
         <!-- FAQ 3 -->
         <div class="faq-item reveal-item">
-          <div class="faq-question">
+          <div class="faq-question" role="button" tabindex="0" id="faq-q-3" aria-expanded="false" aria-controls="faq-a-3">
             <span>Will our website perform well in Google search (SEO)?</span>
             <span class="faq-toggle">+</span>
           </div>
-          <div class="faq-answer">
+          <div class="faq-answer" id="faq-a-3" role="region" aria-labelledby="faq-q-3">
             <p>Yes, absolutely. We automatically implement semantic HTML tags, optimize image layers (WebP, fetch priority), compress bundle payloads, and avoid render-blocking assets. Every project aims for perfect 100 scores in Lighthouse audits.</p>
           </div>
         </div>
         <!-- FAQ 4 -->
         <div class="faq-item reveal-item">
-          <div class="faq-question">
+          <div class="faq-question" role="button" tabindex="0" id="faq-q-4" aria-expanded="false" aria-controls="faq-a-4">
             <span>Do you offer website maintenance and updates?</span>
             <span class="faq-toggle">+</span>
           </div>
-          <div class="faq-answer">
+          <div class="faq-answer" id="faq-a-4" role="region" aria-labelledby="faq-q-4">
             <p>Yes. We offer dedicated hosting, server monitoring, security patches, and monthly content/design updates to ensure your digital platform remains in pristine condition and performs cleanly day after day.</p>
           </div>
         </div>
@@ -3680,14 +3699,14 @@
       });
 
       pricingTL.to(pricingCards[0], {
-        y: "80vh",
+        y: () => window.innerWidth > 768 ? "80vh" : "-80vh",
         opacity: 0,
         scale: 0.9,
         ease: "power1.inOut"
       });
 
       pricingTL.to(pricingCards[1], {
-        y: "80vh",
+        y: () => window.innerWidth > 768 ? "80vh" : "-80vh",
         opacity: 0,
         scale: 0.9,
         ease: "power1.inOut"
@@ -3926,15 +3945,33 @@
 
     // FAQ ACCORDION INTERACTION
     const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
+    faqItems.forEach((item) => {
       const question = item.querySelector('.faq-question');
-      question.addEventListener('click', () => {
+      
+      const toggleFaq = () => {
         const isActive = item.classList.contains('active');
-        // Collapse all other items
-        faqItems.forEach(other => other.classList.remove('active'));
+        
+        // Collapse all items first and update ARIA attributes
+        faqItems.forEach(other => {
+          other.classList.remove('active');
+          const otherQ = other.querySelector('.faq-question');
+          if (otherQ) otherQ.setAttribute('aria-expanded', 'false');
+        });
+        
         // Toggle current item
         if (!isActive) {
           item.classList.add('active');
+          question.setAttribute('aria-expanded', 'true');
+        } else {
+          question.setAttribute('aria-expanded', 'false');
+        }
+      };
+
+      question.addEventListener('click', toggleFaq);
+      question.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleFaq();
         }
       });
     });
