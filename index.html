@@ -1775,10 +1775,14 @@
       #hero-portal {
         width: 88vw;
         height: 72vh;
-        min-height: 550px;
+        min-height: 420px; /* Reduced from 550px to fit on small viewports */
         border-radius: 16px 16px 0 0;
         border-bottom: none;
-        background: #ffffff !important; /* White background portal on mobile */
+        background-color: #ffffff !important; /* Only override background color, not background-image */
+      }
+      .hero-bottom-details {
+        bottom: 3.5vh !important; /* Lift slightly on mobile */
+        gap: 0.5rem !important; /* Pack layout tighter on mobile */
       }
       .hero-text-wrapper {
         padding: 1.2rem !important;
