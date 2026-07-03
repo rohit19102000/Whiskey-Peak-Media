@@ -6,6 +6,21 @@
   <meta name="description" content="Whiskey Peak Media - A premium web design agency that builds high-performance, motion-driven websites for client businesses.">
   <title>Whiskey Peak Media | Premium Web Design Agency</title>
   
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rohit19102000.github.io/Whiskey-Peak-Media/">
+  <meta property="og:title" content="Whiskey Peak Media | Premium Web Design Agency">
+  <meta property="og:description" content="Whiskey Peak Media - A premium web design agency that builds high-performance, motion-driven websites for client businesses.">
+  <meta property="og:image" content="hero_bg.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Whiskey Peak Media | Premium Web Design Agency">
+  <meta name="twitter:description" content="Whiskey Peak Media - A premium web design agency that builds high-performance, motion-driven websites for client businesses.">
+  <meta name="twitter:image" content="hero_bg.webp">
+
+  <!-- Favicon -->
+  <link rel="icon" href="hero_bg.webp" type="image/webp">
+  <link rel="shortcut icon" href="hero_bg.webp">
+
   <!-- Modern Typography from Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -153,7 +168,7 @@
       height: 100% !important;
     }
 
-    /* Fade top/bottom edge gradients of column */
+    /* Fade top/bottom edge gradients of column (desktop only) */
     .reviews-column::before,
     .reviews-column::after {
       content: "";
@@ -166,11 +181,18 @@
     }
     .reviews-column::before {
       top: 0;
-      background: linear-gradient(to bottom, var(--bg-color), transparent);
+      background: linear-gradient(to bottom, rgba(255,255,255,0.92), transparent);
     }
     .reviews-column::after {
       bottom: 0;
-      background: linear-gradient(to top, var(--bg-color), transparent);
+      background: linear-gradient(to top, rgba(255,255,255,0.92), transparent);
+    }
+    /* On mobile: disable the white fade overlay entirely so card text stays visible */
+    @media (max-width: 767px) {
+      .reviews-column::before,
+      .reviews-column::after {
+        display: none !important;
+      }
     }
 
     /* Vertical Marquee Tracks with Veltora speeds */
@@ -471,7 +493,7 @@
       border-bottom: none; /* Sit flush with bottom */
       box-shadow: 0 -10px 60px rgba(200, 144, 58, 0.08), inset 0 10px 40px rgba(200, 144, 58, 0.04);
       overflow: hidden;
-      background: #ffffff url('hero_bg.png') no-repeat center center;
+      background: #ffffff url('hero_bg.webp') no-repeat center center;
       background-size: cover;
       transform-origin: bottom center; /* Scale upwards and outwards */
       will-change: transform, border-radius, border-color;
@@ -2105,7 +2127,7 @@
       .popular-badge {
         top: 15px !important;
         right: 15px !important;
-      } }
+      }
       .faq-question {
         padding: 1.5rem;
         font-size: 1rem;
@@ -2115,19 +2137,51 @@
       }
       /* Reviews Mobile Adjustments */
       #reviews-section {
-        padding: 80px 1.5rem;
+        padding: 60px 1rem;
       }
-      .reviews-marquee-grid {
-        grid-template-columns: 1fr;
-        height: 480px;
-        gap: 1.5rem;
+      .reviews-marquee-wrapper {
+        padding: 0.75rem !important;
+        height: 540px !important;
       }
-      .reviews-marquee-grid .reviews-column:nth-child(2),
-      .reviews-marquee-grid .reviews-column:nth-child(3) {
-        display: none;
+      /* Mobile: hide columns 2 & 3 — show only 1 scrolling column */
+      .reviews-columns-grid .reviews-column:nth-child(2),
+      .reviews-columns-grid .reviews-column:nth-child(3) {
+        display: none !important;
       }
+      /* Compact card sizing so 4-5 fit in the visible area */
       .review-card {
-        padding: 1.5rem;
+        padding: 0.55rem 0.75rem !important;
+      }
+      .review-card .review-text {
+        font-size: 0.7rem !important;
+        line-height: 1.35 !important;
+        margin-bottom: 0.35rem !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+      }
+      .review-stars {
+        font-size: 0.65rem !important;
+        margin-bottom: 0.2rem !important;
+        letter-spacing: 1px !important;
+      }
+      .review-card .review-author {
+        gap: 0.5rem !important;
+      }
+      .review-card .review-avatar {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 0.6rem !important;
+      }
+      .review-card .review-meta h4 {
+        font-size: 0.7rem !important;
+      }
+      .review-card .review-meta p {
+        font-size: 0.6rem !important;
+      }
+      .reviews-vertical-track {
+        gap: 0.45rem !important;
       }
       
       /* Mobile will-change layers budget control */
@@ -2379,10 +2433,10 @@
         <!-- Pinned Center Image Column -->
         <div class="center-column">
           <div class="image-container" id="story-img-container">
-            <img src="planning_wireframe.png" alt="Discovery Process" class="active">
-            <img src="ui_prototype.png" alt="UI Design Prototype">
-            <img src="code_development.png" alt="Code Development and Performance Optimization">
-            <img src="launched_website.png" alt="Successful Launch and Analytics Setup">
+            <img src="planning_wireframe.webp" alt="Discovery Process" class="active">
+            <img src="ui_prototype.webp" alt="UI Design Prototype">
+            <img src="code_development.webp" alt="Code Development and Performance Optimization">
+            <img src="launched_website.webp" alt="Successful Launch and Analytics Setup">
             
             <!-- Scanline Overlay Canvas -->
             <canvas id="scanline-canvas"></canvas>
@@ -2436,10 +2490,10 @@
   <section id="services-section">
     <!-- Fullscreen changing background visuals for services -->
     <div class="services-bg-container">
-      <div class="service-bg-visual" id="services-visual-1" style="background-image: url('services_strategy.png');"></div>
-      <div class="service-bg-visual" id="services-visual-2" style="background-image: url('services_design.png');"></div>
-      <div class="service-bg-visual" id="services-visual-3" style="background-image: url('services_dev.png');"></div>
-      <div class="service-bg-visual" id="services-visual-4" style="background-image: url('services_seo.png');"></div>
+      <div class="service-bg-visual" id="services-visual-1" style="background-image: url('services_strategy.webp');"></div>
+      <div class="service-bg-visual" id="services-visual-2" style="background-image: url('services_design.webp');"></div>
+      <div class="service-bg-visual" id="services-visual-3" style="background-image: url('services_dev.webp');"></div>
+      <div class="service-bg-visual" id="services-visual-4" style="background-image: url('services_seo.webp');"></div>
     </div>
     <div class="services-layout-wrapper">
       <div class="services-header">
@@ -2496,7 +2550,7 @@
         <span class="logo-item">Welkin Tattoos</span>
         <span class="logo-item">Vikramatic Designs</span>
       </div>
-      <div class="logo-track">
+      <div class="logo-track" aria-hidden="true">
         <span class="logo-item">VELTORA</span>
         <span class="logo-item">Apex Fitness</span>
         <span class="logo-item">Crown & Clippers</span>
@@ -2522,7 +2576,10 @@
         <div class="portfolio-track portfolio-track-1">
           <!-- 1. Veltora Watches -->
           <a href="https://veltora-silk.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_veltora.png" alt="Veltora Watches" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_veltora.webp" type="image/webp">
+              <img src="portfolio_veltora.png" alt="Veltora Watches" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Veltora Watches</h3>
               <p class="portfolio-flow-desc">Luxury Swiss watch customizer website built with Next.js and 3D canvases.</p>
@@ -2530,7 +2587,10 @@
           </a>
           <!-- 2. Apex Fitness -->
           <a href="https://apex-fitness-gilt.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_apex_fitness.png" alt="Apex Fitness" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_apex_fitness.webp" type="image/webp">
+              <img src="portfolio_apex_fitness.png" alt="Apex Fitness" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Apex Fitness</h3>
               <p class="portfolio-flow-desc">High-performance training portal featuring motion timelines and progress dashboards.</p>
@@ -2538,7 +2598,10 @@
           </a>
           <!-- 3. Crown & Clippers -->
           <a href="https://crown-and-clippers.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_crown_clippers.png" alt="Crown & Clippers" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_crown_clippers.webp" type="image/webp">
+              <img src="portfolio_crown_clippers.png" alt="Crown & Clippers" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Crown & Clippers</h3>
               <p class="portfolio-flow-desc">Bespoke luxury grooming catalog and barbershop reservation platform.</p>
@@ -2546,7 +2609,10 @@
           </a>
           <!-- 4. Green Haven -->
           <a href="https://green-haven-khaki.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_green_haven.png" alt="Green Haven" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_green_haven.webp" type="image/webp">
+              <img src="portfolio_green_haven.png" alt="Green Haven" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Green Haven</h3>
               <p class="portfolio-flow-desc">Eco-friendly plant nursery catalog and sustainable horticulture e-store.</p>
@@ -2554,7 +2620,10 @@
           </a>
           <!-- 5. Casteel Chiropractic -->
           <a href="https://casteel-chiropractic.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_chiropractic.png" alt="Casteel Chiropractic" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_chiropractic.webp" type="image/webp">
+              <img src="portfolio_chiropractic.png" alt="Casteel Chiropractic" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Casteel Chiropractic</h3>
               <p class="portfolio-flow-desc">Medical wellness interface with interactive symptom mapping tools.</p>
@@ -2562,7 +2631,10 @@
           </a>
           <!-- 6. Maaza Rose -->
           <div class="portfolio-flow-card no-link">
-            <img src="portfolio_maaza_rose.png" alt="Maaza Rose Cosmetics" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_maaza_rose.webp" type="image/webp">
+              <img src="portfolio_maaza_rose.png" alt="Maaza Rose Cosmetics" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Maaza Rose</h3>
               <p class="portfolio-flow-desc">Luxury botanical floral cosmetics portal presenting organic product formulas.</p>
@@ -2570,7 +2642,10 @@
           </div>
           <!-- 7. Welkin Tattoos -->
           <a href="https://welkintattoos.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_welkin_tattoos.png" alt="Welkin Tattoos Pro" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_welkin_tattoos.webp" type="image/webp">
+              <img src="portfolio_welkin_tattoos.png" alt="Welkin Tattoos Pro" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Welkin Tattoos Pro</h3>
               <p class="portfolio-flow-desc">Dark creative studio portfolio and interactive artist booking calendar.</p>
@@ -2578,7 +2653,10 @@
           </a>
           <!-- 8. Vikramatic Designs -->
           <a href="https://vikramatic-designs.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_vikramatic.png" alt="Vikramatic Designs" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_vikramatic.webp" type="image/webp">
+              <img src="portfolio_vikramatic.png" alt="Vikramatic Designs" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Vikramatic Designs</h3>
               <p class="portfolio-flow-desc">Premium interior visualization & spatial architectural rendering portfolio.</p>
@@ -2595,75 +2673,99 @@
           
           <!-- Loop Duplicates for Row 1 -->
           <!-- 1. Veltora Watches -->
-          <a href="https://veltora-silk.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_veltora.png" alt="Veltora Watches" class="portfolio-flow-img">
+          <a href="https://veltora-silk.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card" aria-hidden="true" tabindex="-1">
+            <picture>
+              <source srcset="portfolio_veltora.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_veltora.png" alt="Veltora Watches" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Veltora Watches</h3>
               <p class="portfolio-flow-desc">Luxury Swiss watch customizer website built with Next.js and 3D canvases.</p>
             </div>
           </a>
           <!-- 2. Apex Fitness -->
-          <a href="https://apex-fitness-gilt.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_apex_fitness.png" alt="Apex Fitness" class="portfolio-flow-img">
+          <a href="https://apex-fitness-gilt.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card" aria-hidden="true" tabindex="-1">
+            <picture>
+              <source srcset="portfolio_apex_fitness.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_apex_fitness.png" alt="Apex Fitness" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Apex Fitness</h3>
               <p class="portfolio-flow-desc">High-performance training portal featuring motion timelines and progress dashboards.</p>
             </div>
           </a>
           <!-- 3. Crown & Clippers -->
-          <a href="https://crown-and-clippers.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_crown_clippers.png" alt="Crown & Clippers" class="portfolio-flow-img">
+          <a href="https://crown-and-clippers.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card" aria-hidden="true" tabindex="-1">
+            <picture>
+              <source srcset="portfolio_crown_clippers.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_crown_clippers.png" alt="Crown & Clippers" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Crown & Clippers</h3>
               <p class="portfolio-flow-desc">Bespoke luxury grooming catalog and barbershop reservation platform.</p>
             </div>
           </a>
           <!-- 4. Green Haven -->
-          <a href="https://green-haven-khaki.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_green_haven.png" alt="Green Haven" class="portfolio-flow-img">
+          <a href="https://green-haven-khaki.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card" aria-hidden="true" tabindex="-1">
+            <picture>
+              <source srcset="portfolio_green_haven.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_green_haven.png" alt="Green Haven" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Green Haven</h3>
               <p class="portfolio-flow-desc">Eco-friendly plant nursery catalog and sustainable horticulture e-store.</p>
             </div>
           </a>
           <!-- 5. Casteel Chiropractic -->
-          <a href="https://casteel-chiropractic.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_chiropractic.png" alt="Casteel Chiropractic" class="portfolio-flow-img">
+          <a href="https://casteel-chiropractic.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card" aria-hidden="true" tabindex="-1">
+            <picture>
+              <source srcset="portfolio_chiropractic.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_chiropractic.png" alt="Casteel Chiropractic" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Casteel Chiropractic</h3>
               <p class="portfolio-flow-desc">Medical wellness interface with interactive symptom mapping tools.</p>
             </div>
           </a>
           <!-- 6. Maaza Rose -->
-          <div class="portfolio-flow-card no-link">
-            <img src="portfolio_maaza_rose.png" alt="Maaza Rose Cosmetics" class="portfolio-flow-img">
+          <div class="portfolio-flow-card no-link" aria-hidden="true">
+            <picture>
+              <source srcset="portfolio_maaza_rose.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_maaza_rose.png" alt="Maaza Rose Cosmetics" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Maaza Rose</h3>
               <p class="portfolio-flow-desc">Luxury botanical floral cosmetics portal presenting organic product formulas.</p>
             </div>
           </div>
           <!-- 7. Welkin Tattoos -->
-          <a href="https://welkintattoos.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_welkin_tattoos.png" alt="Welkin Tattoos Pro" class="portfolio-flow-img">
+          <a href="https://welkintattoos.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card" aria-hidden="true" tabindex="-1">
+            <picture>
+              <source srcset="portfolio_welkin_tattoos.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_welkin_tattoos.png" alt="Welkin Tattoos Pro" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Welkin Tattoos Pro</h3>
               <p class="portfolio-flow-desc">Dark creative studio portfolio and interactive artist booking calendar.</p>
             </div>
           </a>
           <!-- 8. Vikramatic Designs -->
-          <a href="https://vikramatic-designs.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_vikramatic.png" alt="Vikramatic Designs" class="portfolio-flow-img">
+          <a href="https://vikramatic-designs.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card" aria-hidden="true" tabindex="-1">
+            <picture>
+              <source srcset="portfolio_vikramatic.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_vikramatic.png" alt="Vikramatic Designs" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Vikramatic Designs</h3>
               <p class="portfolio-flow-desc">Premium interior visualization & spatial architectural rendering portfolio.</p>
             </div>
           </a>
           <!-- Empty Spacer Card 1 -->
-          <div class="portfolio-flow-card empty-card">
+          <div class="portfolio-flow-card empty-card" aria-hidden="true">
             <span class="empty-title">X</span>
           </div>
           <!-- Empty Spacer Card 2 -->
-          <div class="portfolio-flow-card empty-card">
+          <div class="portfolio-flow-card empty-card" aria-hidden="true">
             <span class="empty-title">X</span>
           </div>
         </div>
@@ -2674,7 +2776,10 @@
         <div class="portfolio-track portfolio-track-2">
           <!-- 1. Vikramatic Designs -->
           <a href="https://vikramatic-designs.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_vikramatic.png" alt="Vikramatic Designs" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_vikramatic.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_vikramatic.png" alt="Vikramatic Designs" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Vikramatic Designs</h3>
               <p class="portfolio-flow-desc">Premium interior visualization & spatial architectural rendering portfolio.</p>
@@ -2682,7 +2787,10 @@
           </a>
           <!-- 2. Welkin Tattoos -->
           <a href="https://welkintattoos.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_welkin_tattoos.png" alt="Welkin Tattoos Pro" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_welkin_tattoos.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_welkin_tattoos.png" alt="Welkin Tattoos Pro" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Welkin Tattoos Pro</h3>
               <p class="portfolio-flow-desc">Dark creative studio portfolio and interactive artist booking calendar.</p>
@@ -2690,7 +2798,10 @@
           </a>
           <!-- 3. Maaza Rose -->
           <div class="portfolio-flow-card no-link">
-            <img src="portfolio_maaza_rose.png" alt="Maaza Rose Cosmetics" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_maaza_rose.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_maaza_rose.png" alt="Maaza Rose Cosmetics" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Maaza Rose</h3>
               <p class="portfolio-flow-desc">Luxury botanical floral cosmetics portal presenting organic product formulas.</p>
@@ -2698,7 +2809,10 @@
           </div>
           <!-- 4. Casteel Chiropractic -->
           <a href="https://casteel-chiropractic.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_chiropractic.png" alt="Casteel Chiropractic" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_chiropractic.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_chiropractic.png" alt="Casteel Chiropractic" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Casteel Chiropractic</h3>
               <p class="portfolio-flow-desc">Medical wellness interface with interactive symptom mapping tools.</p>
@@ -2706,7 +2820,10 @@
           </a>
           <!-- 5. Green Haven -->
           <a href="https://green-haven-khaki.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_green_haven.png" alt="Green Haven" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_green_haven.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_green_haven.png" alt="Green Haven" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Green Haven</h3>
               <p class="portfolio-flow-desc">Eco-friendly plant nursery catalog and sustainable horticulture e-store.</p>
@@ -2714,7 +2831,10 @@
           </a>
           <!-- 6. Crown & Clippers -->
           <a href="https://crown-and-clippers.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_crown_clippers.png" alt="Crown & Clippers" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_crown_clippers.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_crown_clippers.png" alt="Crown & Clippers" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Crown & Clippers</h3>
               <p class="portfolio-flow-desc">Bespoke luxury grooming catalog and barbershop reservation platform.</p>
@@ -2722,7 +2842,10 @@
           </a>
           <!-- 7. Apex Fitness -->
           <a href="https://apex-fitness-gilt.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_apex_fitness.png" alt="Apex Fitness" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_apex_fitness.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_apex_fitness.png" alt="Apex Fitness" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Apex Fitness</h3>
               <p class="portfolio-flow-desc">High-performance training portal featuring motion timelines and progress dashboards.</p>
@@ -2730,7 +2853,10 @@
           </a>
           <!-- 8. Veltora Watches -->
           <a href="https://veltora-silk.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_veltora.png" alt="Veltora Watches" class="portfolio-flow-img">
+            <picture>
+              <source srcset="portfolio_veltora.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_veltora.png" alt="Veltora Watches" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Veltora Watches</h3>
               <p class="portfolio-flow-desc">Luxury Swiss watch customizer website built with Next.js and 3D canvases.</p>
@@ -2747,75 +2873,99 @@
           
           <!-- Loop Duplicates for Row 2 -->
           <!-- 1. Vikramatic Designs -->
-          <a href="https://vikramatic-designs.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_vikramatic.png" alt="Vikramatic Designs" class="portfolio-flow-img">
+          <a href="https://vikramatic-designs.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card" aria-hidden="true" tabindex="-1">
+            <picture>
+              <source srcset="portfolio_vikramatic.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_vikramatic.png" alt="Vikramatic Designs" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Vikramatic Designs</h3>
               <p class="portfolio-flow-desc">Premium interior visualization & spatial architectural rendering portfolio.</p>
             </div>
           </a>
           <!-- 2. Welkin Tattoos -->
-          <a href="https://welkintattoos.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_welkin_tattoos.png" alt="Welkin Tattoos Pro" class="portfolio-flow-img">
+          <a href="https://welkintattoos.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card" aria-hidden="true" tabindex="-1">
+            <picture>
+              <source srcset="portfolio_welkin_tattoos.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_welkin_tattoos.png" alt="Welkin Tattoos Pro" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Welkin Tattoos Pro</h3>
               <p class="portfolio-flow-desc">Dark creative studio portfolio and interactive artist booking calendar.</p>
             </div>
           </a>
           <!-- 3. Maaza Rose -->
-          <div class="portfolio-flow-card no-link">
-            <img src="portfolio_maaza_rose.png" alt="Maaza Rose Cosmetics" class="portfolio-flow-img">
+          <div class="portfolio-flow-card no-link" aria-hidden="true">
+            <picture>
+              <source srcset="portfolio_maaza_rose.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_maaza_rose.png" alt="Maaza Rose Cosmetics" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Maaza Rose</h3>
               <p class="portfolio-flow-desc">Luxury botanical floral cosmetics portal presenting organic product formulas.</p>
             </div>
           </div>
           <!-- 4. Casteel Chiropractic -->
-          <a href="https://casteel-chiropractic.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_chiropractic.png" alt="Casteel Chiropractic" class="portfolio-flow-img">
+          <a href="https://casteel-chiropractic.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card" aria-hidden="true" tabindex="-1">
+            <picture>
+              <source srcset="portfolio_chiropractic.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_chiropractic.png" alt="Casteel Chiropractic" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Casteel Chiropractic</h3>
               <p class="portfolio-flow-desc">Medical wellness interface with interactive symptom mapping tools.</p>
             </div>
           </a>
           <!-- 5. Green Haven -->
-          <a href="https://green-haven-khaki.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_green_haven.png" alt="Green Haven" class="portfolio-flow-img">
+          <a href="https://green-haven-khaki.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card" aria-hidden="true" tabindex="-1">
+            <picture>
+              <source srcset="portfolio_green_haven.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_green_haven.png" alt="Green Haven" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Green Haven</h3>
               <p class="portfolio-flow-desc">Eco-friendly plant nursery catalog and sustainable horticulture e-store.</p>
             </div>
           </a>
           <!-- 6. Crown & Clippers -->
-          <a href="https://crown-and-clippers.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_crown_clippers.png" alt="Crown & Clippers" class="portfolio-flow-img">
+          <a href="https://crown-and-clippers.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card" aria-hidden="true" tabindex="-1">
+            <picture>
+              <source srcset="portfolio_crown_clippers.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_crown_clippers.png" alt="Crown & Clippers" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Crown & Clippers</h3>
               <p class="portfolio-flow-desc">Bespoke luxury grooming catalog and barbershop reservation platform.</p>
             </div>
           </a>
           <!-- 7. Apex Fitness -->
-          <a href="https://apex-fitness-gilt.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_apex_fitness.png" alt="Apex Fitness" class="portfolio-flow-img">
+          <a href="https://apex-fitness-gilt.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card" aria-hidden="true" tabindex="-1">
+            <picture>
+              <source srcset="portfolio_apex_fitness.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_apex_fitness.png" alt="Apex Fitness" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Apex Fitness</h3>
               <p class="portfolio-flow-desc">High-performance training portal featuring motion timelines and progress dashboards.</p>
             </div>
           </a>
           <!-- 8. Veltora Watches -->
-          <a href="https://veltora-silk.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card">
-            <img src="portfolio_veltora.png" alt="Veltora Watches" class="portfolio-flow-img">
+          <a href="https://veltora-silk.vercel.app" target="_blank" rel="noopener noreferrer" class="portfolio-flow-card" aria-hidden="true" tabindex="-1">
+            <picture>
+              <source srcset="portfolio_veltora.webp" type="image/webp">
+              <img loading="lazy" src="portfolio_veltora.png" alt="Veltora Watches" class="portfolio-flow-img">
+            </picture>
             <div class="portfolio-flow-overlay">
               <h3 class="portfolio-flow-title">Veltora Watches</h3>
               <p class="portfolio-flow-desc">Luxury Swiss watch customizer website built with Next.js and 3D canvases.</p>
             </div>
           </a>
           <!-- Empty Spacer Card 1 -->
-          <div class="portfolio-flow-card empty-card">
+          <div class="portfolio-flow-card empty-card" aria-hidden="true">
             <span class="empty-title">X</span>
           </div>
           <!-- Empty Spacer Card 2 -->
-          <div class="portfolio-flow-card empty-card">
+          <div class="portfolio-flow-card empty-card" aria-hidden="true">
             <span class="empty-title">X</span>
           </div>
         </div>
@@ -2932,7 +3082,7 @@
               </div>
             </div>
             <!-- Duplicate for Seamless Loop -->
-            <div class="review-card">
+            <div class="review-card" aria-hidden="true">
               <div class="review-stars">★★★★★</div>
               <p class="review-text">"Whiskey Peak Media delivered a custom platform that load in under 1 second. Our conversions increased by 40%."</p>
               <div class="review-author">
@@ -2943,7 +3093,7 @@
                 </div>
               </div>
             </div>
-            <div class="review-card">
+            <div class="review-card" aria-hidden="true">
               <div class="review-stars">★★★★★</div>
               <p class="review-text">"Exceptional attention to detail. The custom dashboards are extremely fast and intuitive for our users."</p>
               <div class="review-author">
@@ -2954,7 +3104,7 @@
                 </div>
               </div>
             </div>
-            <div class="review-card">
+            <div class="review-card" aria-hidden="true">
               <div class="review-stars">★★★★★</div>
               <p class="review-text">"The visual design is breathtaking. They captured our luxury brand essence perfectly. Compliments keep flowing."</p>
               <div class="review-author">
@@ -3008,7 +3158,7 @@
               </div>
             </div>
             <!-- Duplicate for Seamless Loop -->
-            <div class="review-card">
+            <div class="review-card" aria-hidden="true">
               <div class="review-stars">★★★★★</div>
               <p class="review-text">"Their scrollytelling implementation blew our minds. It's rare to find an agency that couples high design with clean code."</p>
               <div class="review-author">
@@ -3019,7 +3169,7 @@
                 </div>
               </div>
             </div>
-            <div class="review-card">
+            <div class="review-card" aria-hidden="true">
               <div class="review-stars">★★★★★</div>
               <p class="review-text">"Outstanding engineering and speed. The AI visual elements they built are incredibly premium and operate flawlessly."</p>
               <div class="review-author">
@@ -3030,7 +3180,7 @@
                 </div>
               </div>
             </div>
-            <div class="review-card">
+            <div class="review-card" aria-hidden="true">
               <div class="review-stars">★★★★★</div>
               <p class="review-text">"They built our portfolio with smooth GSAP animations that work perfectly on all mobile devices. Highly recommended."</p>
               <div class="review-author">
@@ -3084,7 +3234,7 @@
               </div>
             </div>
             <!-- Duplicate for Seamless Loop -->
-            <div class="review-card">
+            <div class="review-card" aria-hidden="true">
               <div class="review-stars">★★★★★</div>
               <p class="review-text">"Whiskey Peak Media delivered a custom platform that load in under 1 second. Our conversions increased by 40%."</p>
               <div class="review-author">
@@ -3095,7 +3245,7 @@
                 </div>
               </div>
             </div>
-            <div class="review-card">
+            <div class="review-card" aria-hidden="true">
               <div class="review-stars">★★★★★</div>
               <p class="review-text">"The visual design is breathtaking. They captured our luxury brand essence perfectly. Compliments keep flowing."</p>
               <div class="review-author">
@@ -3106,7 +3256,7 @@
                 </div>
               </div>
             </div>
-            <div class="review-card">
+            <div class="review-card" aria-hidden="true">
               <div class="review-stars">★★★★★</div>
               <p class="review-text">"Outstanding engineering and speed. The AI visual elements they built are incredibly premium and operate flawlessly."</p>
               <div class="review-author">
@@ -3712,32 +3862,28 @@
         ease: "power1.inOut"
       });
 
-      // CONTACT SECTION SCROLL REVEAL
-      gsap.from("#contact-section .contact-info", {
+      // CONTACT SECTION SCROLL REVEAL (consolidated into one shared ScrollTrigger)
+      const contactRevealTL = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#contact-section",
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      });
+      contactRevealTL.from("#contact-section .contact-info", {
         x: () => window.innerWidth > 768 ? -80 : 0,
         y: () => window.innerWidth > 768 ? 0 : 30,
         opacity: 0,
         duration: 1.0,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: "#contact-section",
-          start: "top 85%",
-          toggleActions: "play none none reverse"
-        }
-      });
-
-      gsap.from("#contact-section .contact-form-wrapper", {
+        ease: "power3.out"
+      }, 0);
+      contactRevealTL.from("#contact-section .contact-form-wrapper", {
         x: () => window.innerWidth > 768 ? 80 : 0,
         y: () => window.innerWidth > 768 ? 0 : 30,
         opacity: 0,
         duration: 1.0,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: "#contact-section",
-          start: "top 85%",
-          toggleActions: "play none none reverse"
-        }
-      });
+        ease: "power3.out"
+      }, 0);
 
       // PORTFOLIO CONTAINER SCROLL SCALE-UP
       gsap.fromTo(".portfolio-flow-container", 
@@ -3773,131 +3919,74 @@
         }).join('') + '<span class="typed-cursor">|</span>';
       }
 
-      let statsTweens = [];
+      // Set initial states for elements
+      gsap.set("#about-section .about-title .char", { opacity: 0 });
+      gsap.set("#about-section .about-body", { opacity: 0, y: 15 });
+      gsap.set("#about-section .stat-block", { opacity: 0, y: 20, borderColor: "rgba(200, 144, 58, 0.0)" });
+      gsap.set("#about-section #about-cta", { opacity: 0, y: 20, scale: 0.95 });
 
-      function playStatsAnim() {
-        // Clean up previous animations
-        statsTweens.forEach(t => t.kill());
-        statsTweens = [];
-
-        // 1. Typing effect for heading characters
-        statsTweens.push(
-          gsap.to("#about-section .about-title .char", {
-            opacity: 1,
-            duration: 0.03,
-            stagger: 0.02,
-            ease: "none"
-          })
-        );
-
-        // 2. Smooth reveal of the body paragraph text
-        statsTweens.push(
-          gsap.fromTo("#about-section .about-body",
-            { opacity: 0, y: 15 },
-            { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.4 }
-          )
-        );
-
-        // 3. Staggered reveal of the stat card borders
-        statsTweens.push(
-          gsap.to("#about-section .stat-block", {
-            opacity: 1,
-            y: 0,
-            borderColor: "rgba(200, 144, 58, 0.18)",
-            duration: 0.7,
-            stagger: 0.12,
-            ease: "power2.out",
-            delay: 0.4 // Delay to coordinate with typing completion
-          })
-        );
-
-        // 4. Staggered count-up of values
-        const numbers = document.querySelectorAll("#about-section .stat-number");
-        numbers.forEach((num, idx) => {
-          const targetVal = parseFloat(num.getAttribute("data-target"));
-          const suffix = num.getAttribute("data-suffix") || "";
-          const decimals = parseInt(num.getAttribute("data-decimals") || "0");
-          
-          const obj = { val: 0 };
-          statsTweens.push(
-            gsap.to(obj, {
-              val: targetVal,
-              duration: 1.2,
-              ease: "power1.out",
-              delay: 0.5 + (idx * 0.12), // Ticks start as cards appear
-              onUpdate: () => {
-                num.textContent = obj.val.toFixed(decimals) + suffix;
-              }
-            })
-          );
-        });
-
-        // 5. Fade and lift the CTA Button
-        statsTweens.push(
-          gsap.to("#about-section #about-cta", {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.6,
-            ease: "power2.out",
-            delay: 0.75
-          })
-        );
-      }
-
-      function resetStatsAnim() {
-        // Clean up active animations
-        statsTweens.forEach(t => t.kill());
-        statsTweens = [];
-
-        // Hide heading characters
-        gsap.set("#about-section .about-title .char", { opacity: 0 });
-
-        // Hide description paragraph
-        gsap.set("#about-section .about-body", { opacity: 0, y: 15 });
-
-        // Slide down and hide cards
-        gsap.to("#about-section .stat-block", {
-          opacity: 0,
-          y: 20,
-          borderColor: "rgba(200, 144, 58, 0.0)",
-          duration: 0.4,
-          ease: "power2.in"
-        });
-
-        // Hide CTA Button
-        gsap.set("#about-section #about-cta", {
-          opacity: 0,
-          y: 20,
-          scale: 0.95
-        });
-
-        // Set numbers back to zero
-        const numbers = document.querySelectorAll("#about-section .stat-number");
-        numbers.forEach((num) => {
-          const suffix = num.getAttribute("data-suffix") || "";
-          const decimals = parseInt(num.getAttribute("data-decimals") || "0");
-          const zero = 0;
-          num.textContent = zero.toFixed(decimals) + suffix;
-        });
-      }
-
-      // Initialize CTA initial button state
-      gsap.set("#about-section #about-cta", {
-        opacity: 0,
-        y: 20,
-        scale: 0.95
+      const aboutTL = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#about-section",
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play reverse play reverse",
+          invalidateOnRefresh: true
+        }
       });
 
-      ScrollTrigger.create({
-        trigger: "#about-section",
-        start: "top 80%",
-        end: "bottom 20%",
-        onEnter: () => playStatsAnim(),
-        onEnterBack: () => playStatsAnim(),
-        onLeave: () => resetStatsAnim(),
-        onLeaveBack: () => resetStatsAnim()
+      // 1. Typing effect for heading characters
+      aboutTL.to("#about-section .about-title .char", {
+        opacity: 1,
+        duration: 0.03,
+        stagger: 0.02,
+        ease: "none"
+      }, 0);
+
+      // 2. Smooth reveal of the body paragraph text
+      aboutTL.to("#about-section .about-body", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out"
+      }, 0.4);
+
+      // 3. Staggered reveal of the stat card borders
+      aboutTL.to("#about-section .stat-block", {
+        opacity: 1,
+        y: 0,
+        borderColor: "rgba(200, 144, 58, 0.18)",
+        duration: 0.7,
+        stagger: 0.12,
+        ease: "power2.out"
+      }, 0.4);
+
+      // 4. Staggered count-up of values
+      const numbers = document.querySelectorAll("#about-section .stat-number");
+      numbers.forEach((num, idx) => {
+        const targetVal = parseFloat(num.getAttribute("data-target"));
+        const suffix = num.getAttribute("data-suffix") || "";
+        const decimals = parseInt(num.getAttribute("data-decimals") || "0");
+        
+        const obj = { val: 0 };
+        aboutTL.to(obj, {
+          val: targetVal,
+          duration: 1.2,
+          ease: "power1.out",
+          onUpdate: () => {
+            num.textContent = obj.val.toFixed(decimals) + suffix;
+          }
+        }, 0.5 + (idx * 0.12));
       });
+
+      // 5. Fade and lift the CTA Button
+      aboutTL.to("#about-section #about-cta", {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.6,
+        ease: "power2.out"
+      }, 0.75);
 
       // Force ScrollTrigger to calculate correct offsets for all pins and markers
       ScrollTrigger.refresh();
@@ -3994,6 +4083,9 @@
         }, 1500);
       });
     }
+
+    // Refresh ScrollTrigger values after all triggers have been instantiated
+    ScrollTrigger.refresh();
   </script>
 </body>
 </html>
